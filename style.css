@@ -234,7 +234,7 @@ body {
   height: 100%;
   object-fit: cover;
   object-position: center 35%;
-  filter: saturate(0.5) brightness(0.7) hue-rotate(180deg);
+  filter: saturate(0.7) brightness(0.7);
   transform: scale(1.04);
   transition: transform 8s ease;
 }
