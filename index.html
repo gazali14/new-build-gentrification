@@ -73,7 +73,7 @@
         </div>
         <div class="nav-brand-text">
           <span class="nav-brand">New-Build Gentrification</span>
-          <span class="nav-subbrand">Polstat STIS &mdash; Jakarta 2024</span>
+          <span class="nav-subbrand">Polstat STIS &mdash; Jakarta 2026</span>
         </div>
       </div>
       <ul class="nav-links">
@@ -110,8 +110,8 @@
 
       <div class="hero-content">
         <span class="hero-tag"
-          >Skripsi &mdash; Komputasi Statistik &#x2F;&#x2F; Polstat STIS
-          2026</span
+          >Skripsi &mdash; Komputasi Statistik &#x2F;&#x2F; La Ode Muhammad
+          Gazali</span
         >
         <h1 class="hero-kota">
           Menelusuri <span>New-Build Gentrification</span>di Jakarta
@@ -124,7 +124,7 @@
           probabilitas risiko di 42 kecamatan DKI Jakarta menggunakan data
           multisumber dan <em>machine learning</em> 2014&ndash;2024.
         </p>
-        <div class="hero-research-label">
+        <div class="hero-research-label" style="width: 100%">
           <span class="hero-research-tag">Analisis Fenomena</span>
           <em>New-Build Gentrification</em> di Jakarta &mdash; Data Multisumber
           &amp; <em>Machine Learning</em>
@@ -633,7 +633,7 @@
             Sedang
           </button>
           <button class="peta-filter-btn" data-risk="rendah">
-            <span class="dot" style="background: #2b8a3e"></span>
+            <span class="dot" style="background: #1e56a0"></span>
             Rendah
           </button>
         </div>
@@ -686,7 +686,7 @@
               <span>Sedang (20–35%) — 15 Kec.</span>
             </div>
             <div class="legend-item">
-              <div class="legend-dot" style="background: #2b8a3e"></div>
+              <div class="legend-dot" style="background: #1e56a0"></div>
               <span>Rendah (&lt;20%) — 10 Kec.</span>
             </div>
           </div>
@@ -952,89 +952,6 @@
         </div>
       </div>
     </section>
-
-    <!-- ══════════════════════════════════════════════════════════════
-     SECTION 8 — CATATAN METODOLOGI & LIMITASI
-══════════════════════════════════════════════════════════════ -->
-    <section class="section-wrapper" id="catatan">
-      <div class="section-inner">
-        <p class="section-eyebrow reveal">08 &mdash; Catatan &amp; Limitasi</p>
-        <h2 class="section-headline reveal reveal-delay-1">
-          Apa yang angka ini<br /><em>tidak</em> bisa katakan
-        </h2>
-
-        <p class="lead-text reveal reveal-delay-2">
-          Setiap model prediktif membawa asumsi dan keterbatasan. Transparansi
-          metodologis adalah bagian dari integritas riset.
-        </p>
-
-        <div class="caveat-grid reveal">
-          <div class="caveat-item">
-            <span class="caveat-icon">⚠️</span>
-            <h4>Data Kecil</h4>
-            <p>
-              Hanya 42 kecamatan sebagai unit observasi. Ukuran sampel yang
-              kecil membatasi kemampuan model untuk menggeneralisasi, dan hasil
-              Stratified K-Fold perlu diinterpretasikan dengan hati-hati —
-              khususnya pada metrik yang menunjukkan nilai sempurna (1.0).
-            </p>
-          </div>
-          <div class="caveat-item">
-            <span class="caveat-icon">📸</span>
-            <h4>Snapshot, Bukan Proses</h4>
-            <p>
-              Model menangkap kondisi dua titik waktu (2014 & 2024), bukan
-              dinamika kontinu. Perubahan mendadak pasca-2024 tidak tercermin
-              dalam prediksi.
-            </p>
-          </div>
-          <div class="caveat-item">
-            <span class="caveat-icon">🗺️</span>
-            <h4>Unit Kecamatan</h4>
-            <p>
-              Gentrifikasi sering terjadi pada skala sub-kecamatan bahkan
-              kelurahan. Agregasi ke level kecamatan dapat menyembunyikan hot
-              spot yang lebih spesifik.
-            </p>
-          </div>
-          <div class="caveat-item">
-            <span class="caveat-icon">🔢</span>
-            <h4>Label dari Clustering</h4>
-            <p>
-              Target klasifikasi (label "gentrifying") berasal dari K-Means
-              Tahap 1, yang sendiri merupakan metode unsupervised.
-              Ketidakpastian di Tahap 1 menyebar ke Tahap 2.
-            </p>
-          </div>
-          <div class="caveat-item">
-            <span class="caveat-icon">📊</span>
-            <h4>Variabel Proxy</h4>
-            <p>
-              Data penginderaan jauh (NTL, NDBI, LST, NDVI) adalah proxy — ia
-              mengukur gejala, bukan penyebab langsung gentrifikasi. Mekanisme
-              kausalitas membutuhkan analisis kualitatif tambahan.
-            </p>
-          </div>
-          <div class="caveat-item">
-            <span class="caveat-icon">🏛️</span>
-            <h4>Faktor Kebijakan</h4>
-            <p>
-              Regulasi tata ruang, proyek pemerintah, dan kebijakan perumahan —
-              yang bisa secara drastis mengubah trajektori kawasan — tidak
-              secara eksplisit masuk sebagai variabel prediksi.
-            </p>
-          </div>
-        </div>
-
-        <p class="body-text reveal" style="margin-top: 2rem">
-          Terlepas dari keterbatasan ini, model Random Forest dengan AUC 0.905
-          memberikan dasar yang kuat untuk perencanaan berbasis bukti. Riset ini
-          bukan klaim determinisme — ia adalah alarm dini yang perlu direspons
-          dengan kebijakan yang berpihak pada warga.
-        </p>
-      </div>
-    </section>
-
     <!-- ══════════════════════════════════════════════════════════════
      FOOTER
 ══════════════════════════════════════════════════════════════ -->
