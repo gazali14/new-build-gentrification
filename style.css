@@ -2477,15 +2477,7 @@ footer strong {
     display: none;
   }
   .hero-h1 {
-    /* Mengecilkan ukuran teks secara drastis, terutama nilai tengah dan maksimum */
-    font-size: clamp(1rem, 4vw, 2.5rem);
-
-    /* Merapatkan jarak antar baris agar tidak terlalu memakan tinggi layar */
-    line-height: 1.1;
-
-    /* Mencegah pemotongan kata di tengah huruf pada layar kecil */
-    word-break: keep-all;
-    overflow-wrap: break-word;
+    font-size: clamp(2.5rem, 8vw, 5rem);
   }
 }
 
