@@ -1458,7 +1458,7 @@ body::after {
    METODOLOGI — Step Flow
    ══════════════════════════════════════ */
 #metodologi {
-  background: var(--void);
+  background: var(--abyss);
 }
 .method-steps {
   display: grid;
