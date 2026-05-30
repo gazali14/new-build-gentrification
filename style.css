@@ -1467,7 +1467,7 @@ body::after {
   margin: 3rem 0;
 }
 .method-step {
-  background: var(--abyss);
+  background: var(--void);
   padding: 2rem 1.75rem;
   position: relative;
   overflow: hidden;
