@@ -453,7 +453,7 @@ body::after {
   height: 100%;
   object-fit: cover;
   object-position: center 40%;
-  filter: saturate(0.4) brightness(0.3);
+  filter: saturate(0.7) brightness(0.8);
   transform: scale(1.06);
   transition: transform 12s ease;
 }
