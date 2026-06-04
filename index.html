@@ -336,8 +336,8 @@
             <p>
               Kedua model dikonfigurasi dengan Stratified K-Fold (k=5) dan
               hyperparameter tuning via grid search. Model terpilih
-              diproyeksikan ke data 2024. Hasil dikategorikan ke empat tingkat
-              risiko mengacu pada Knorr (2019): Rendah (&lt;20%), Sedang
+              diproyeksikan ke data 2024. Hasil dikategorikan ke empat tingkatan
+               mengacu pada Knorr (2019): Rendah (&lt;20%), Sedang
               (20–35%), Tinggi (35–50%), Sangat Tinggi (&gt;50%).
             </p>
           </div>
@@ -347,7 +347,7 @@
             <p>
               Temuan penelitian disajikan dalam format web story interaktif
               berbasis JavaScript. Peta hasil prediksi, distribusi indikator,
-              dan tingkat risiko gentrifikasi divisualisasikan secara spasial
+              dan tingkat probabilitas gentrifikasi divisualisasikan secara spasial
               agar dapat diakses dan dipahami oleh khalayak luas, tidak hanya
               kalangan akademik.
             </p>
@@ -691,7 +691,7 @@
       <div class="inner">
         <p class="eyebrow" data-reveal>05 — Visualisasi Data Hasil Prediksi</p>
         <h2 class="section-headline" data-reveal data-delay="1">
-          42 kecamatan,<br /><em>empat kategori risiko</em>
+          42 kecamatan,<br /><em>empat kategori gentrifikasi</em>
         </h2>
         <p class="lead" data-reveal data-delay="2" style="margin-bottom: 2rem">
           Sebanyak 5 kecamatan (11,9%) masuk kategori Sangat Tinggi, 12
@@ -1042,20 +1042,17 @@
         };
 
         function loadImg(imgEl, phEl, filename) {
-          imgEl.style.opacity = "0";
           phEl.classList.remove("hidden");
-          const t = new Image();
-          t.onload = function () {
-            imgEl.src = filename;
+          imgEl.style.opacity = "0";
+          imgEl.onload = function () {
             imgEl.style.opacity = "1";
             phEl.classList.add("hidden");
           };
-          t.onerror = function () {
-            imgEl.src = "";
+          imgEl.onerror = function () {
             imgEl.style.opacity = "0";
             phEl.classList.remove("hidden");
           };
-          t.src = filename + "?v=" + Date.now();
+          imgEl.src = filename;
         }
 
         function renderSat(key) {
