@@ -1183,6 +1183,10 @@ body::after {
   position: relative;
   z-index: 1;
 }
+#pelabelan .callout {
+  max-width: none;
+}
+
 .def-card {
   background: var(--abyss);
   padding: 2.5rem 2rem;
@@ -1232,6 +1236,10 @@ body::after {
   100% {
     transform: perspective(600px) rotateY(0);
   }
+}
+.def-card .fc-tag {
+  position: relative;
+  z-index: 1;
 }
 .def-num {
   font-family: var(--display);
@@ -1575,9 +1583,9 @@ body::after {
   font-size: 0.62rem;
   letter-spacing: 0.05em;
   padding: 0.25em 0.75em;
-  color: var(--teal);
+  color: var(--bone);
   background: rgba(0, 212, 170, 0.05);
-  border: 1px solid rgba(0, 212, 170, 0.25);
+  border: 1px solid var(--bone);
   border-radius: 1px;
 }
 
@@ -1622,15 +1630,10 @@ body::after {
   cursor: pointer;
   border-radius: 1px;
 }
-.var-pill:hover,
-.var-pill.top4 {
+.var-pill:hover {
   background: rgba(0, 212, 170, 0.1);
   color: var(--teal);
   border-color: rgba(0, 212, 170, 0.4);
-}
-.var-pill.top4 {
-  color: var(--teal);
-  background: rgba(0, 212, 170, 0.08);
 }
 .var-pill:active {
   transform: scale(0.95);

@@ -52,7 +52,7 @@
           <a href="#definisi" data-text="Latar Belakang">Latar Belakang</a>
         </li>
         <li><a href="#metodologi" data-text="Metodologi">Metodologi</a></li>
-        <li><a href="#hasil-model" data-text="Hasil">Hasil</a></li>
+        <li><a href="#pelabelan" data-text="Hasil">
         <li><a href="#peta-section" data-text="Pemetaan">Pemetaan</a></li>
         <li><a href="#validasi" data-text="Validasi">Validasi</a></li>
         <li>
@@ -426,7 +426,7 @@
                 kesehatan, dan NJOP, distandardisasi dengan z-score dan lolos
                 uji multikolinearitas (VIF 1,16–3,52).
                 <em>Elbow Method</em> untuk K = 2 hingga 8 menunjuk k = 3:
-                Klaster 0 Stabil (14 kecamatan), Klaster 1 Gentrifikasi Tinggi
+                Klaster 0 Stabil (14 kecamatan), Klaster 1 Intensif
                 (7), dan Klaster 2 Transisi (21). Uji
                 <em>K-Color Join Count</em> (<em>Queen contiguity</em>, 10.000
                 permutasi Monte Carlo) menunjukkan ketiga klaster mengelompok
@@ -535,9 +535,6 @@
         <div class="var-block" data-reveal>
           <h4 class="var-block-title">
             13 variabel prediktor
-            <small
-              >kondisi 2014 · warna teal = empat kontributor terbesar</small
-            >
           </h4>
           <div class="var-pills" id="var-pills-container"></div>
         </div>
@@ -640,12 +637,77 @@
       </div>
     </section>
 
+        <!-- ══════════════════════════════════════
+     PELABELAN WILAYAH (K-MEANS)
+     ══════════════════════════════════════ -->
+    <section class="section-wrap" id="pelabelan" data-section="Pelabelan">
+      <div class="inner">
+        <p class="eyebrow" data-reveal>03 — Pelabelan Wilayah</p>
+        <h2 class="section-headline" data-reveal data-delay="1">
+          Tiga pola perubahan,<br /><em>satu label untuk model</em>
+        </h2>
+        <p class="lead" data-reveal data-delay="2">
+          Belum ada label resmi tentang kecamatan mana yang sudah
+          bergentrifikasi. Karena itu 42 kecamatan dikelompokkan dengan
+          <em>K-Means</em> berdasarkan perubahan sembilan indikator antara 2014
+          dan 2024. <em>Elbow Method</em> menunjuk tiga klaster, dan uji
+          <em>K-Color Join Count</em> menunjukkan ketiganya mengelompok secara
+          spasial, bukan acak (p &lt; 0,05).
+        </p>
+
+        <div class="def-grid" data-reveal data-delay="3">
+          <div class="def-card">
+            <span class="fc-tag" style="color: var(--teal)"
+              >Klaster 0 · 14 kecamatan</span
+            >
+            <h3>Stabil</h3>
+            <p>
+              NJOP naik paling kecil dan perubahan fisik minimal, meski
+              fasilitas komersial, pendidikan, dan kesehatan tumbuh cukup
+              tinggi. Sebagian besar di pinggiran, misalnya Jagakarsa, Ciracas,
+              Cipayung, dan Tanjung Priok.
+            </p>
+          </div>
+          <div class="def-card">
+            <span class="fc-tag" style="color: var(--risk-1)"
+              >Klaster 1 · 7 kecamatan</span
+            >
+            <h3>Intensif</h3>
+            <p>
+              NJOP naik paling tajam, disertai kenaikan LST, NTL, dan simpul
+              transportasi yang juga tertinggi. Meliputi Kebayoran Baru, Setia
+              Budi, Tanah Abang, Menteng, Gambir, Senen, dan Kelapa Gading.
+            </p>
+          </div>
+          <div class="def-card">
+            <span class="fc-tag" style="color: var(--risk-2)"
+              >Klaster 2 · 21 kecamatan</span
+            >
+            <h3>Transisi</h3>
+            <p>
+              NJOP dan transportasi sudah naik di atas Klaster 0, tetapi belum
+              sekuat Klaster 1. Membentuk cincin di sekitar pusat, misalnya
+              Pasar Minggu, Tebet, Kebon Jeruk, dan Penjaringan.
+            </p>
+          </div>
+        </div>
+
+        <div class="callout" data-reveal>
+          <strong>Dari tiga klaster menjadi dua label</strong>
+          Klaster 1 ditetapkan sebagai kelas <em>Gentrifying</em> (7 kecamatan,
+          16,7%). Klaster 0 dan 2 digabung sebagai <em>Not Gentrifying</em> (35
+          kecamatan, 83,3%). Label biner inilah yang diprediksi model pada
+          bagian berikutnya.
+        </div>
+      </div>
+    </section>
+
     <!-- ══════════════════════════════════════
      HASIL MODEL
      ══════════════════════════════════════ -->
-    <section class="section-wrap" id="hasil-model" data-section="Hasil Model">
+    <section class="section-wrap" id="hasil-model" data-section="Hasil Model" data-nav="pelabelan">
       <div class="inner" style="position: relative; z-index: 1">
-        <p class="eyebrow" data-reveal>03 — Performa Model</p>
+        <p class="eyebrow" data-reveal>04 — Performa Model</p>
         <h2 class="section-headline" data-reveal data-delay="1">
           Random Forest unggul<br /><em>di hampir semua metrik</em>
         </h2>
@@ -755,7 +817,7 @@
       data-section="Peta Probabilitas"
     >
       <div class="inner-wide">
-        <p class="eyebrow" data-reveal>04 — Peta Interaktif</p>
+        <p class="eyebrow" data-reveal>05 — Peta Interaktif</p>
         <h2 class="section-headline" data-reveal data-delay="1">
           Gradasi dari pusat<br /><em>ke pinggiran kota</em>
         </h2>
@@ -898,7 +960,7 @@
      ══════════════════════════════════════ -->
     <section class="section-wrap" id="validasi" data-section="Validasi">
       <div class="inner-wide">
-        <p class="eyebrow" data-reveal>05 — Validasi Eksternal</p>
+        <p class="eyebrow" data-reveal>06 — Validasi Eksternal</p>
         <h2 class="section-headline" data-reveal data-delay="1">
           Penggusuran terjadi di kawasan<br /><em
             >yang sedang bertransformasi</em
@@ -1002,7 +1064,7 @@
       data-section="Visualisasi Data"
     >
       <div class="inner">
-        <p class="eyebrow" data-reveal>06 — Visualisasi Data Hasil Prediksi</p>
+        <p class="eyebrow" data-reveal>07 — Visualisasi Data Hasil Prediksi</p>
         <h2 class="section-headline" data-reveal data-delay="1">
           42 kecamatan,<br /><em>empat kategori probabilitas</em>
         </h2>
@@ -1076,19 +1138,17 @@
     <!-- ══════════════════════════════════════
      TEMUAN / INTERPRETASI
      ══════════════════════════════════════ -->
-    <section class="section-wrap" id="interpretasi" data-section="Temuan">
+        <section class="section-wrap" id="interpretasi" data-section="Temuan">
       <div class="inner">
-        <p class="eyebrow" data-reveal>07 — Temuan Penelitian</p>
+        <p class="eyebrow" data-reveal>08 — Temuan Penelitian</p>
         <h2 class="section-headline" data-reveal data-delay="1">
-          Pola spasial yang<br /><em>tidak terbentuk secara kebetulan</em>
+          Tekanan terpusat di inti,<br /><em>menipis ke pinggiran</em>
         </h2>
         <p class="lead" data-reveal data-delay="2">
-          Prediksi menunjukkan pola <em>center-periphery</em> yang jelas dan
-          konsisten dengan hasil klasterisasi K-Means. Uji
-          <em>K-Color Join Count</em> menegaskan ketiga klaster mengelompok
-          secara spasial (p &lt; 0,05), dan validasi dengan data penggusuran
-          2016–2018 memperlihatkan kasus terbanyak berada di kawasan berkategori
-          Tinggi dan Sedang, yaitu kawasan yang masih dalam proses transformasi.
+          Probabilitas <em>new-build gentrification</em> tertinggi berada di
+          pusat kota dan menurun bertahap ke pinggiran. Penggusuran 2016–2018
+          paling banyak terjadi di kawasan berkategori Tinggi dan Sedang, yaitu
+          kawasan yang masih dalam proses transformasi.
         </p>
 
         <div class="finding-grid" data-reveal data-delay="3">
@@ -1096,13 +1156,7 @@
             <div class="fc-bar" style="background: var(--risk-1)">
               <div
                 class="fc-bar-fill"
-                style="
-                  background: linear-gradient(
-                    90deg,
-                    var(--risk-1),
-                    var(--risk-2)
-                  );
-                "
+                style="background: linear-gradient(90deg, var(--risk-1), var(--risk-2))"
                 data-width="100"
               ></div>
             </div>
@@ -1113,26 +1167,11 @@
             <ul>
               <li>
                 Setia Budi (69,6%), Menteng (61,4%), Gambir (55,8%), Kebayoran
-                Baru (54,2%), dan Kelapa Gading (50,9%), seluruhnya di atas 50%
+                Baru (54,2%), Kelapa Gading (50,9%)
               </li>
               <li>
-                Kelimanya juga tergabung dalam Klaster 1 (Gentrifikasi Tinggi)
-                pada tahap K-Means, yaitu kecamatan dengan kenaikan NJOP, LST,
-                NTL, dan aksesibilitas transportasi paling kuat
-              </li>
-              <li>
-                Menteng, Setia Budi, dan Gambir berada di pusat aktivitas bisnis
-                dan pemerintahan. Gambir mencatat kenaikan NTL tertinggi kedua
-                (+12,89) dan Menteng kenaikan LST tertinggi (+3,34 °C)
-              </li>
-              <li>
-                Kelapa Gading di Jakarta Utara masuk kategori ini meski terpisah
-                dari koridor pusat kota, mencerminkan perkembangannya sebagai
-                pusat hunian dan komersial premium
-              </li>
-              <li>
-                Validasi: 17 kasus penggusuran (14,7%) dengan 223 KK terdampak
-                (3,7%)
+                Pusat aktivitas bisnis dan pemerintahan; Kelapa Gading menonjol
+                sebagai pusat hunian dan komersial premium di Jakarta Utara
               </li>
             </ul>
           </div>
@@ -1141,13 +1180,7 @@
             <div class="fc-bar" style="background: var(--risk-2)">
               <div
                 class="fc-bar-fill"
-                style="
-                  background: linear-gradient(
-                    90deg,
-                    var(--risk-2),
-                    var(--risk-3)
-                  );
-                "
+                style="background: linear-gradient(90deg, var(--risk-2), var(--risk-3))"
                 data-width="78"
               ></div>
             </div>
@@ -1157,23 +1190,10 @@
             <h3>Zona transisi di sekitar inti</h3>
             <ul>
               <li>
-                Tanah Abang, Jatinegara, Cakung, Pademangan, Tanjung Priok,
-                Senen, Kebon Jeruk, Mampang Prapatan, Grogol Petamburan,
-                Penjaringan, Kemayoran, Cilandak
+                Termasuk Tanah Abang (48,0%), Jatinegara (44,9%), dan Cakung
+                (44,4%)
               </li>
-              <li>
-                Tanah Abang (48,0%) dan Senen (41,9%) termasuk Klaster 1, namun
-                probabilitas prediksinya masih di bawah 50%
-              </li>
-              <li>
-                Kecamatan kategori ini, bersama kategori Sedang, mengelilingi
-                inti dan membentuk zona transisi, pola yang sejalan dengan
-                <em>Concentric Zone Model</em>
-              </li>
-              <li>
-                Validasi: 40 kasus penggusuran (34,5%) dengan 4.022 KK terdampak
-                (66,2%), porsi KK terbesar di antara semua kategori
-              </li>
+              <li>Memuat porsi KK terdampak penggusuran terbesar (66,2%)</li>
             </ul>
           </div>
 
@@ -1181,35 +1201,17 @@
             <div class="fc-bar" style="background: var(--risk-3)">
               <div
                 class="fc-bar-fill"
-                style="
-                  background: linear-gradient(
-                    90deg,
-                    var(--risk-3),
-                    var(--gold)
-                  );
-                "
+                style="background: linear-gradient(90deg, var(--risk-3), var(--gold))"
                 data-width="52"
               ></div>
             </div>
             <span class="fc-tag" style="color: var(--risk-3)"
               >🟡 Sedang — 15 Kecamatan</span
             >
-            <h3>Cincin perantara yang luas</h3>
+            <h3>Cincin perantara</h3>
             <ul>
-              <li>
-                Pulo Gadung, Kembangan, Johar Baru, Tebet, Palmerah, Taman Sari,
-                Matraman, Sawah Besar, Cempaka Putih, Kebayoran Lama, Koja,
-                Pasar Minggu, Pancoran, Tambora, Cengkareng
-              </li>
-              <li>
-                Berada di antara kawasan berprobabilitas tinggi dan kawasan
-                pinggiran yang probabilitasnya rendah
-              </li>
-              <li>Cengkareng (20,4%) berada tepat di ambang batas kategori</li>
-              <li>
-                Validasi: 37 kasus penggusuran (31,9%) dengan 1.310 KK terdampak
-                (21,6%)
-              </li>
+              <li>Berada di antara inti dan kawasan pinggiran</li>
+              <li>Cengkareng (20,4%) tepat di ambang batas kategori</li>
             </ul>
           </div>
 
@@ -1217,13 +1219,7 @@
             <div class="fc-bar" style="background: var(--risk-4)">
               <div
                 class="fc-bar-fill"
-                style="
-                  background: linear-gradient(
-                    90deg,
-                    var(--risk-4),
-                    var(--teal)
-                  );
-                "
+                style="background: linear-gradient(90deg, var(--risk-4), var(--teal))"
                 data-width="22"
               ></div>
             </div>
@@ -1233,22 +1229,12 @@
             <h3>Pinggiran yang relatif terlindungi</h3>
             <ul>
               <li>
-                Makasar, Kramat Jati, Cilincing, Jagakarsa, Duren Sawit, Kali
-                Deres, Ciracas, Cipayung, Pesanggrahan, Pasar Rebo
+                Pasar Rebo (7,4%), Pesanggrahan (8,3%), Cipayung (9,3%), dan
+                kecamatan pinggiran lainnya
               </li>
               <li>
-                Terutama di pinggiran selatan dan tenggara, serta barat dan
-                timur laut Jakarta, dengan aksesibilitas ke pusat kota yang
-                lebih terbatas
-              </li>
-              <li>
-                Karakteristiknya belum menunjukkan pola yang mengarah pada
-                <em>new-build gentrification</em>, sehingga lebih terlindungi
-                dari tekanan gentrifikasi dalam jangka pendek
-              </li>
-              <li>
-                Validasi: 22 kasus penggusuran (19,0%) dengan 517 KK terdampak
-                (8,5%)
+                Aksesibilitas ke pusat lebih terbatas, sehingga lebih
+                terlindungi dalam jangka pendek
               </li>
             </ul>
           </div>
@@ -1258,32 +1244,24 @@
           <h4>Batasan penelitian</h4>
           <ul>
             <li>
-              Wilayah studi mencakup 42 kecamatan di lima kota administrasi;
-              Kabupaten Kepulauan Seribu dikeluarkan karena terpisah oleh laut.
+              Hanya 42 kecamatan (Kepulauan Seribu dikeluarkan) dan dua titik
+              waktu, 2014 dan 2024.
             </li>
             <li>
-              Analisis hanya membandingkan dua titik waktu, 2014 dan 2024,
-              sesuai ketersediaan data multisumber.
+              Data sekunder kuantitatif; faktor kualitatif seperti kebijakan
+              politik dan persepsi warga tidak dianalisis.
             </li>
             <li>
-              Pendekatan sepenuhnya kuantitatif dengan data sekunder; faktor
-              kualitatif seperti kebijakan politik, konflik sosial, dan persepsi
-              warga tidak dianalisis.
-            </li>
-            <li>
-              Lokasi penggusuran pada data validasi memiliki ketelitian yang
-              beragam, dan <em>web story</em> ini berfungsi sebagai media
-              visualisasi statis tanpa pembaruan data <em>real time</em>.
+              Ketelitian lokasi penggusuran beragam, dan <em>web story</em> ini
+              statis tanpa pembaruan data <em>real time</em>.
             </li>
           </ul>
         </div>
 
         <p class="body-copy" data-reveal style="margin-top: 2rem">
-          Penelitian ini diharapkan menjadi instrumen pendukung keputusan
-          berbasis data bagi pemerintah daerah dan perencana tata ruang, agar
-          kebijakan tata ruang dan penyediaan hunian lebih antisipatif dan tepat
-          sasaran dalam melindungi kelompok berpendapatan rendah dari dampak
-          <em>new-build gentrification</em>.
+          Penelitian ini diharapkan menjadi instrumen pendukung keputusan bagi
+          pemerintah daerah dan perencana tata ruang agar kebijakan lebih
+          antisipatif dan tepat sasaran.
         </p>
       </div>
     </section>
