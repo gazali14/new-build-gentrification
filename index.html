@@ -48,11 +48,18 @@
       </div>
 
       <ul class="nav-links">
-        <li><a href="#definisi" data-text="Latar Belakang">Latar Belakang</a></li>
+        <li>
+          <a href="#definisi" data-text="Latar Belakang">Latar Belakang</a>
+        </li>
         <li><a href="#metodologi" data-text="Metodologi">Metodologi</a></li>
         <li><a href="#hasil-model" data-text="Hasil">Hasil</a></li>
         <li><a href="#peta-section" data-text="Pemetaan">Pemetaan</a></li>
-        <li><a href="#visualisasi" data-text="Visualisasi Data">Visualisasi Data</a></li>
+        <li><a href="#validasi" data-text="Validasi">Validasi</a></li>
+        <li>
+          <a href="#visualisasi" data-text="Visualisasi Data"
+            >Visualisasi Data</a
+          >
+        </li>
         <li><a href="#interpretasi" data-text="Kesimpulan">Kesimpulan</a></li>
       </ul>
 
@@ -87,11 +94,12 @@
 
         <p class="hero-sub">
           Di balik pertumbuhan kawasan komersial, pendidikan, kesehatan,
-          transportasi, dan hunian baru, Jakarta mengalami perubahan sosial dan
-          spasial yang semakin cepat. Penelitian ini memetakan probabilitas
-          <em>new-build gentrification</em> di 42 kecamatan DKI Jakarta
-          menggunakan pendekatan <em>machine learning</em>
-          berbasis data multisumber.
+          transportasi, dan hunian vertikal baru, Jakarta mengalami perubahan
+          sosial dan spasial yang semakin cepat. Penelitian ini memetakan
+          probabilitas <em>new-build gentrification</em> di 42 kecamatan DKI
+          Jakarta menggunakan pendekatan <em>machine learning</em> berbasis data
+          multisumber: citra satelit, <em>Point of Interest</em>, dan statistik
+          resmi.
         </p>
 
         <div class="hero-meta">
@@ -109,7 +117,7 @@
           </div>
           <div class="hero-meta-item">
             <span class="hm-label">Metode</span>
-            <span class="hm-value">Machine Learning</span>
+            <span class="hm-value">K-Means · Random Forest</span>
           </div>
         </div>
       </div>
@@ -141,7 +149,7 @@
                 >0</span
               ></span
             >
-            <span class="stat-label">Kepadatan Penduduk DKI Jakarta</span>
+            <span class="stat-label">Kepadatan Penduduk (jiwa/km²)</span>
             <span class="stat-sub">BPS DKI Jakarta (2024)</span>
           </div>
           <div class="stat-item" id="stat-2">
@@ -150,7 +158,7 @@
                 >0</span
               ></span
             >
-            <span class="stat-label">Terjadi Perpindahan Negatif (Jiwa)</span>
+            <span class="stat-label">Selisih Perpindahan Penduduk (Jiwa)</span>
             <span class="stat-sub">Disdukcapil DKI Jakarta (2024)</span>
           </div>
           <div class="stat-item" id="stat-3">
@@ -158,7 +166,7 @@
               ><span class="count-up" data-target="245">0</span></span
             >
             <span class="stat-label">Hunian Vertikal di DKI Jakarta</span>
-            <span class="stat-sub">Scrapping</span>
+            <span class="stat-sub">Murdaka (2025)</span>
           </div>
         </div>
       </div>
@@ -175,11 +183,13 @@
           Ketika kota tumbuh,<br /><em>tidak semua ikut bertumbuh</em>
         </h2>
         <p class="lead" data-reveal data-delay="2">
-          Jakarta dirancang oleh pemerintah kolonial Belanda untuk menampung
-          sekitar 300 ribu jiwa. Kini, penduduknya mencapai 10,68 juta jiwa
-          dengan kepadatan sekitar 16.165 jiwa per km², jauh melampaui kapasitas
-          aslinya. Di tengah tekanan ini, Jakarta mengalami pergeseran orientasi
-          permukiman dari pola horizontal menuju vertikal.
+          Lebih dari 59% penduduk Indonesia kini tinggal di wilayah perkotaan,
+          dan angkanya diproyeksikan mencapai 70% pada 2045 (World Bank, 2024).
+          Tekanan ruang paling kompleks terasa di Jakarta: 10,68 juta jiwa
+          menempati kota dengan kepadatan sekitar 16.165 jiwa per km². Lahan
+          menjadi semakin langka, sementara pembangunan infrastruktur dan
+          perluasan jaringan konektivitas mendorong nilai lahan naik, terutama
+          di kawasan strategis yang belum termanfaatkan secara optimal.
         </p>
 
         <div class="def-grid" data-reveal data-delay="3">
@@ -187,56 +197,70 @@
             <span class="def-num">01</span>
             <h3>Rent Gap Theory (Smith, 1979)</h3>
             <p>
-              "Kesenjangan antara nilai aktual lahan dengan nilai potensialnya
-              setelah dikembangkan". Ketika kesenjangan ini membesar investasi
-              masuk untuk mengoptimalkan nilai lahan, dan proses transformasi
-              kawasan pun dimulai.
+              Kesenjangan antara nilai ekonomi yang saat ini diperoleh dari
+              sebidang lahan (<em>capitalized ground rent</em>) dan nilai
+              maksimal yang dapat dicapai bila lahan dikembangkan secara optimal
+              (<em>potential ground rent</em>). Ketika kesenjangan ini melebar,
+              misalnya karena perluasan jaringan transportasi, modal investasi
+              masuk dan transformasi kawasan dimulai.
             </p>
           </div>
           <div class="def-card" title="Definisi gentrifikasi">
             <span class="def-num">02</span>
-            <h3>Gentrifikasi (Marcuse, 1985)</h3>
+            <h3>Gentrifikasi dan Displacement</h3>
             <p>
-              Proses perubahan kawasan perkotaan ketika kelompok berpendapatan
-              lebih tinggi mulai memasuki wilayah yang sebelumnya dihuni
-              kelompok berpendapatan lebih rendah. Proses ini kerap disertai
-              pergantian populasi yang berdampak pada kelompok masyarakat paling
-              rentan.
+              Gentrifikasi (Glass, 1964) terjadi ketika penduduk berpendapatan
+              lebih tinggi memasuki kawasan yang sebelumnya dihuni kelompok
+              berpendapatan lebih rendah. Pembeda utamanya dari revitalisasi
+              adalah <em>displacement</em>, yakni terdesaknya penduduk awal dari
+              tempat tinggalnya (Marcuse, 1985; Lees dkk., 2008).
             </p>
           </div>
           <div class="def-card" title="Turunan konsep">
             <span class="def-num">03</span>
             <h3>New-Build Gentrification</h3>
             <p>
-              Turunan dari konsep gentrifikasi yang melihat perubahan dari sisi
-              fisik kota. Menurut Murdaka (2025), Jakarta mengalami fenomena ini
-              ditandai proses redevelopment, displacement, dan reinvestasi di
-              kawasan pusat kota yang didorong oleh urbanisasi dan kegiatan
-              berskala besar.
+              Turunan gentrifikasi yang digerakkan oleh pembangunan masif hunian
+              vertikal dan area komersial eksklusif di atas lahan kosong atau
+              lahan yang kurang termanfaatkan (Davidson & Lees, 2005). Di
+              Jakarta, setidaknya 245 hunian vertikal telah berdiri, dengan
+              lonjakan terbesar (119 bangunan) pada dekade 2010-an (Murdaka,
+              2025).
             </p>
           </div>
         </div>
 
         <div class="pull-quote" data-reveal>
           <blockquote>
-            "Kenaikan harga lahan yang signifikan membuat kelompok berpendapatan
-            rendah tidak lagi mampu bertahan di kawasan yang semakin berkembang,
-            sementara proyek infrastruktur berskala besar kerap menjadi pemicu
-            langsung penggusuran tanpa kompensasi yang memadai."
+            Penduduk berpendapatan menengah ke bawah terdesak keluar bukan hanya
+            karena penggusuran paksa saja, melainkan karena hilangnya daya
+            dukung finansial untuk bertahan di lingkungan yang biaya hidup dan
+            nilai propertinya terus naik.
           </blockquote>
-          <cite>— Dewi (2018) dan Ningsih (2025) </cite>
+          <cite>Exclusionary displacement · Marcuse (1985)</cite>
         </div>
 
-        <div style="margin-top: 4rem; border-top: 1px solid rgba(255,255,255,0.08); padding-top: 3.5rem;">
-          <h3 class="section-headline" style="font-size: clamp(1.4rem, 2.5vw, 2rem);" data-reveal>
+        <div
+          style="
+            margin-top: 4rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.08);
+            padding-top: 3.5rem;
+          "
+        >
+          <h3
+            class="section-headline"
+            style="font-size: clamp(1.4rem, 2.5vw, 2rem)"
+            data-reveal
+          >
             395.298 jiwa pergi,<br /><em>84.783 jiwa datang</em>
           </h3>
           <p class="lead" data-reveal data-delay="1">
-            Data Dinas Kependudukan dan Pencatatan Sipil DKI Jakarta tahun 2024
-            mencatat disparitas ekstrem antara arus keluar dan masuk penduduk.
-            Angka perpindahan negatif yang mencapai lebih dari 310.000 jiwa ini
-            bukan sekadar migrasi rutin, melainkan sinyal kuat adanya tekanan
-            spasial yang mendorong penduduk keluar dari pusat kota.
+            Disparitas nilai lahan sangat lebar: rata-rata NJOP 2024 di Setia
+            Budi, Menteng, Gambir, dan Tanah Abang jauh melampaui kawasan
+            permukiman padat seperti Cakung dan Makasar. Kemampuan masyarakat
+            rentan untuk bertahan pun menurun. Data Disdukcapil DKI Jakarta 2024
+            mencatat 395.298 jiwa berpindah keluar, sementara yang datang hanya
+            84.783 jiwa, selisih negatif lebih dari 310.000 jiwa.
           </p>
 
           <div class="def-grid" data-reveal data-delay="2">
@@ -244,48 +268,94 @@
               <span class="def-num">📍</span>
               <h3>Tujuan Perpindahan</h3>
               <p>
-                Mayoritas penduduk berpindah ke wilayah penyangga: Kabupaten Bogor
-                (56.444 jiwa), Kota Depok (45.523 jiwa), dan Bekasi (45.147 jiwa).
-                Pola migrasi jarak pendek ke pinggiran ini mengindikasikan
-                penduduk tidak benar-benar ingin meninggalkan ekosistem Jakarta,
-                namun terpaksa bergeser karena ketidakmampuan menanggung biaya
-                hunian di dalam kota.
+                Arus keluar menuju kota penyangga, terutama Kabupaten Bogor
+                (56.444 jiwa) dan Kota Depok (45.523 jiwa). Kontras antara
+                jumlah yang pergi dan yang datang menjadi sinyal kuat terjadinya
+                <em>displacement</em>: kelompok berpendapatan menengah ke bawah
+                mulai tergeser dari Jakarta.
               </p>
             </div>
             <div class="def-card">
               <span class="def-num">👥</span>
               <h3>Pergeseran Struktur Usia</h3>
               <p>
-                Arus masuk didominasi kelompok usia produktif awal (25–29 tahun)
-                dengan kecenderungan mobilitas tinggi. Sebaliknya, penduduk yang
-                keluar justru didominasi kelompok usia anak (5–14 tahun) dan usia
-                matang (40–44 tahun) yang merepresentasikan unit keluarga mapan.
-                Ini adalah penanda demografis yang konsisten dengan teori
-                pergantian komposisi penduduk akibat gentrifikasi (Marcuse, 1985;
-                Atkinson, 2004).
+                Yang keluar didominasi unit keluarga berusia 40–44 tahun dan
+                anak usia 5–14 tahun. Yang masuk didominasi usia produktif 20–29
+                tahun, mayoritas karyawan swasta dan mahasiswa. Pola ini sejalan
+                dengan pandangan Lees dkk. (2008): kawasan tergentrifikasi
+                cenderung menarik penduduk muda, profesional, dan berpendidikan
+                tinggi.
               </p>
             </div>
             <div class="def-card">
               <span class="def-num">🏗️</span>
-              <h3>Kebutuhan Instrumen Analisis</h3>
+              <h3>Mencegah, bukan menunggu</h3>
               <p>
-                Hingga saat ini belum ada lembaga atau instansi resmi yang
-                memiliki mekanisme klasifikasi maupun pelabelan wilayah
-                berdasarkan probabilitas terjadinya gentrifikasi. Akibatnya,
-                gejala ini seringkali baru teridentifikasi setelah dampak
-                sosialnya sudah terjadi dan sulit dimitigasi. Penelitian ini hadir
-                untuk mengisi celah tersebut.
+                Bila tidak diantisipasi, ketimpangan tata ruang berpotensi
+                menjadi permanen, dan perubahan struktur demografi yang sudah
+                terjadi tidak dapat dikembalikan ke kondisi semula. Karena itu
+                diperlukan instrumen yang memetakan probabilitas wilayah secara
+                prediktif, bukan menunggu dampak <em>displacement</em> muncul.
               </p>
             </div>
           </div>
         </div>
 
         <div class="pull-note" data-reveal style="margin-top: 3.5rem">
+          <h3>Tiga celah yang diisi</h3>
           <p>
-            Tanpa adanya instrumen untuk mengidentifikasi wilayah yang paling
-            rentan terhadap tekanan ini, Jakarta akan menjadi kota yang tidak
-            inklusif terhadap masyarakat berpendapatan rendah.
+            Kajian gentrifikasi di Indonesia masih bertumpu pada wawancara dan
+            observasi yang kasuistik dan sulit direplikasi (Kusumaningrum dkk.,
+            2020; Ningsih, 2025), sementara indikator
+            <em>displacement</em> bersifat reaktif: kebijakan baru dibuat
+            setelah perubahan terjadi. Belum ada (1) mekanisme pelabelan
+            wilayah, (2) instrumen prediktif berbasis <em>machine learning</em>,
+            dan (3) media yang menerjemahkan hasilnya bagi publik.
           </p>
+        </div>
+
+        <div
+          style="
+            margin-top: 4rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.08);
+            padding-top: 3.5rem;
+          "
+        >
+          <h3
+            class="section-headline"
+            style="font-size: clamp(1.4rem, 2.5vw, 2rem)"
+            data-reveal
+          >
+            Tiga tujuan penelitian,<br /><em>tiga tahap analisis</em>
+          </h3>
+          <div class="def-grid" data-reveal data-delay="1">
+            <div class="def-card">
+              <span class="def-num">01</span>
+              <h3>Tipologi wilayah</h3>
+              <p>
+                Membentuk tipologi untuk pelabelan wilayah tingkat kecamatan di
+                Jakarta menggunakan teknik <em>clustering</em> (K-Means).
+              </p>
+            </div>
+            <div class="def-card">
+              <span class="def-num">02</span>
+              <h3>Prediksi probabilitas</h3>
+              <p>
+                Membangun instrumen <em>supervised learning</em> (Random Forest
+                dan <em>Gradient Boosting Machine</em>) untuk memprediksi
+                probabilitas <em>new-build gentrification</em> tiap kecamatan.
+              </p>
+            </div>
+            <div class="def-card">
+              <span class="def-num">03</span>
+              <h3>Web story interaktif</h3>
+              <p>
+                Mengembangkan <em>web story</em> yang menyajikan hasil prediksi
+                secara informatif melalui narasi dan visual spasial yang mudah
+                diakses.
+              </p>
+            </div>
+          </div>
         </div>
       </div>
     </section>
@@ -297,78 +367,202 @@
       <div class="inner">
         <p class="eyebrow" data-reveal>02 — Metodologi</p>
         <h2 class="section-headline" data-reveal data-delay="1">
-          Tiga sumber data,<br /><em>dua tahap analisis</em>
+          Tiga sumber data,<br /><em>satu alur CRISP-DM</em>
         </h2>
         <p class="lead" data-reveal data-delay="2">
-          Penelitian mengintegrasikan citra satelit Google Earth Engine (Landsat
-          8), data Point of Interest dari OpenStreetMap, dan data statistik
-          resmi (PODES, KCDA, dan Satu Data Jakarta). Ketiganya
-          merepresentasikan kondisi Jakarta pada dua titik waktu: 2014 dan 2024.
+          Penelitian mengintegrasikan citra satelit (Landsat 8 OLI TIRS dan
+          VIIRS DNB melalui Google Earth Engine), data
+          <em>Point of Interest</em> (transportasi publik dan hunian vertikal
+          yang di-<em>geocoding</em>
+          lewat OpenStreetMap), serta data statistik resmi (PODES, KCDA, dan
+          NJOP Bapenda DKI Jakarta). Seluruhnya diagregasi ke 42 kecamatan pada
+          dua titik waktu, 2014 dan 2024, lalu diolah mengikuti kerangka
+          <em>Cross-Industry Standard Process for Data Mining</em> (CRISP-DM).
         </p>
+
+        <ol class="flow-strip" data-reveal data-delay="3">
+          <li><span>1</span>Business Understanding</li>
+          <li><span>2</span>Data Understanding</li>
+          <li><span>3</span>Data Preparation</li>
+          <li><span>4</span>Modeling</li>
+          <li><span>5</span>Evaluation</li>
+          <li><span>6</span>Deployment</li>
+        </ol>
 
         <div class="method-steps" data-reveal data-delay="3">
           <div class="method-step">
             <div class="method-step-num">1</div>
-            <h4>Eksplorasi Data Multisumber</h4>
-            <p>
-              Empat indikator citra satelit dianalisis: NTL (Night-Time Light),
-              NDBI (Normalized Difference Built-Up Index), NDVI (Normalized
-              Difference Vegetation Index), dan LST (Land Surface Temperature).
-              Perubahan masing-masing antara 2014 dan 2024 dijadikan variabel
-              delta (Δ).
-            </p>
+            <div class="method-step-body">
+              <h4>Pengumpulan dan Pra-pemrosesan Data</h4>
+              <p>
+                Citra Landsat 8 (NDVI, NDBI, LST) dan VIIRS DNB (NTL) diambil
+                untuk periode 1 Januari–31 Desember 2014 dan 2024. Awan disaring
+                dengan <em>quality assessment band</em>, citra dikomposit dengan
+                median temporal, lalu diagregasi ke kecamatan lewat
+                <em>zonal statistics</em> (median piksel). Titik POI di-<em
+                  >geocoding</em
+                >
+                dan dihitung densitasnya per km², sedangkan data PODES, KCDA,
+                dan NJOP diseragamkan ke tingkat kecamatan.
+              </p>
+              <div class="chip-row">
+                <span class="chip">Landsat 8 OLI TIRS</span>
+                <span class="chip">VIIRS DNB</span>
+                <span class="chip">OpenStreetMap</span>
+                <span class="chip">PODES 2014 &amp; 2024</span>
+                <span class="chip">KCDA</span>
+                <span class="chip">NJOP Bapenda</span>
+              </div>
+            </div>
           </div>
+
           <div class="method-step">
             <div class="method-step-num">2</div>
-            <h4>Pembentukan Label via K-Means (k=3)</h4>
-            <p>
-              Jumlah klaster optimal k=3 dipilih berdasarkan tiga metrik: Elbow
-              Method, Silhouette Score, dan Calinski-Harabasz Score. Hasilnya:
-              Klaster 0 (Stabil, 14 kecamatan), Klaster 1 (Gentrifikasi Tinggi,
-              7 kecamatan), dan Klaster 2 (Transisi, 21 kecamatan). Autokorelasi
-              spasial dikonfirmasi via Join Count Statistics (semua klaster
-              signifikan pada α=0,05).
-            </p>
+            <div class="method-step-body">
+              <h4>Pembentukan Label dengan K-Means</h4>
+              <p>
+                Sembilan variabel perubahan (Δ 2024 − 2014), yaitu NTL, NDBI,
+                NDVI, LST, transportasi, fasilitas komersial, pendidikan,
+                kesehatan, dan NJOP, distandardisasi dengan z-score dan lolos
+                uji multikolinearitas (VIF 1,16–3,52).
+                <em>Elbow Method</em> untuk K = 2 hingga 8 menunjuk k = 3:
+                Klaster 0 Stabil (14 kecamatan), Klaster 1 Gentrifikasi Tinggi
+                (7), dan Klaster 2 Transisi (21). Uji
+                <em>K-Color Join Count</em> (<em>Queen contiguity</em>, 10.000
+                permutasi Monte Carlo) menunjukkan ketiga klaster mengelompok
+                secara spasial (p &lt; 0,05). Klaster 1 kemudian ditetapkan
+                sebagai kelas <em>Gentrifying</em> (7 kecamatan), sedangkan
+                Klaster 0 dan 2 digabung sebagai <em>Not Gentrifying</em> (35
+                kecamatan).
+              </p>
+              <div class="chip-row">
+                <span class="chip">k = 3</span>
+                <span class="chip">z-score</span>
+                <span class="chip">Join Count p &lt; 0,05</span>
+                <span class="chip">Label biner 35 : 7</span>
+              </div>
+            </div>
           </div>
-          <div class="method-step">
-            <div class="method-step-num">4</div>
-            <h4>Prediksi dengan Machine Learning</h4>
-            <p>
-              Kedua model dikonfigurasi dengan Stratified K-Fold (k=5) dan
-              hyperparameter tuning via grid search. Model terpilih
-              diproyeksikan ke data 2024. Hasil dikategorikan ke empat tingkatan
-               mengacu pada Knorr (2019): Rendah (&lt;20%), Sedang
-              (20–35%), Tinggi (35–50%), Sangat Tinggi (&gt;50%).
-            </p>
-          </div>
+
           <div class="method-step">
             <div class="method-step-num">3</div>
-            <h4>Diseminasi dengan Web Story</h4>
-            <p>
-              Temuan penelitian disajikan dalam format web story interaktif
-              berbasis JavaScript. Peta hasil prediksi, distribusi indikator,
-              dan tingkat probabilitas gentrifikasi divisualisasikan secara spasial
-              agar dapat diakses dan dipahami oleh khalayak luas, tidak hanya
-              kalangan akademik.
-            </p>
+            <div class="method-step-body">
+              <h4>Prediksi: Random Forest vs GBM</h4>
+              <p>
+                Dua algoritma <em>tree-based</em> dilatih dengan 13 variabel
+                kondisi 2014 sebagai fitur dan label gentrifikasi 2014–2024
+                sebagai target. Karena sampel hanya 42 kecamatan dan kelas tidak
+                seimbang, digunakan <em>nested cross-validation</em>:
+                <em>outer loop</em> <em>Leave-One-Out CV</em> (42 iterasi) untuk
+                evaluasi, dan <em>inner loop</em> 5-fold untuk
+                <em>grid search</em> <em>hyperparameter</em>, dengan
+                <em>class_weight = balanced</em>. Model terbaik lalu diterapkan
+                pada data 2024 untuk menghasilkan probabilitas tiap kecamatan.
+              </p>
+              <div class="chip-row">
+                <span class="chip">Random Forest</span>
+                <span class="chip">Gradient Boosting Machine</span>
+                <span class="chip">LOOCV × 42</span>
+                <span class="chip">Stratified 5-Fold</span>
+              </div>
+            </div>
           </div>
+
+          <div class="method-step">
+            <div class="method-step-num">4</div>
+            <div class="method-step-body">
+              <h4>Kestabilan dan Kategorisasi</h4>
+              <p>
+                Untuk mengukur ketidakpastian, dilakukan
+                <em>bootstrap resampling</em> 50 iterasi: median dan rentang
+                interkuartil (IQR) dari 50 probabilitas dihitung per kecamatan.
+                Probabilitas dikategorikan mengacu pada Knorr (2019): Rendah
+                (&lt;20%), Sedang (20–35%), Tinggi (35–50%), dan Sangat Tinggi
+                (&gt;50%).
+              </p>
+              <div class="chip-row">
+                <span class="chip">Bootstrap × 50</span>
+                <span class="chip">Median &amp; IQR</span>
+                <span class="chip">4 kategori</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="method-step">
+            <div class="method-step-num">5</div>
+            <div class="method-step-body">
+              <h4>Evaluasi dan Validasi Eksternal</h4>
+              <p>
+                Kinerja model dinilai dengan Accuracy, Balanced Accuracy, AUC,
+                Precision, Recall, dan F1-Score. Hasil prediksi kemudian
+                divalidasi dengan data historis penggusuran LBH Jakarta
+                2016–2018 (116 kasus). Data ini tidak dipakai dalam pelabelan,
+                pelatihan, maupun prediksi. Lokasi penggusuran direpresentasikan
+                sebagai titik dengan <em>buffer</em> 100, 250, atau 500 meter
+                sesuai ketelitian informasi alamatnya.
+              </p>
+              <div class="chip-row">
+                <span class="chip">Balanced Accuracy · AUC</span>
+                <span class="chip">LBH Jakarta 2016–2018</span>
+                <span class="chip">Buffer 100–500 m</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="method-step">
+            <div class="method-step-num">6</div>
+            <div class="method-step-body">
+              <h4>Diseminasi dengan Web Story</h4>
+              <p>
+                Model terbaik diimplementasikan sebagai peta tematik dan
+                <em>web story</em> interaktif yang berjalan sepenuhnya di sisi
+                klien (<em>client-side</em>), tanpa server maupun basis data,
+                karena luaran model bersifat final dan statis. Dibangun dengan
+                HTML, CSS, JavaScript, Leaflet.js, dan Chart.js, dengan data
+                GeoJSON/JSON. Usabilitasnya dievaluasi dengan
+                <em>System Usability Scale</em> (SUS).
+              </p>
+              <div class="chip-row">
+                <span class="chip">Leaflet.js</span>
+                <span class="chip">Chart.js</span>
+                <span class="chip">GeoJSON / JSON</span>
+                <span class="chip">SUS</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="var-block" data-reveal>
+          <h4 class="var-block-title">
+            13 variabel prediktor
+            <small
+              >kondisi 2014 · warna teal = empat kontributor terbesar</small
+            >
+          </h4>
+          <div class="var-pills" id="var-pills-container"></div>
         </div>
       </div>
     </section>
+
     <!-- ══════════════════════════════════════
      SATELIT & POI — PERUBAHAN DEKADE
      ══════════════════════════════════════ -->
-    <section class="section-wrap" id="satelit" data-section="Data Satelit">
+    <section
+      class="section-wrap"
+      id="satelit"
+      data-section="Data Satelit"
+      data-nav="metodologi"
+    >
       <div class="inner-wide">
         <h2 class="section-headline" data-reveal data-delay="1">
           Melihat Jakarta<br /><em>dari angkasa</em>
         </h2>
         <p class="lead" data-reveal data-delay="2">
-          Empat indikator citra satelit Landsat 8 via Google Earth Engine
-          merekam perubahan Jakarta selama satu dekade (2014 → 2024). Data Point
-          of Interest dari OpenStreetMap melengkapi gambaran infrastruktur
-          transportasi dan sebaran hunian vertikal. Pilih variabel untuk melihat
-          perbandingan.
+          Empat indikator citra satelit merekam perubahan Jakarta selama satu
+          dekade (2014 → 2024): NDVI, NDBI, dan LST dari Landsat 8, serta NTL
+          dari VIIRS DNB. Data <em>Point of Interest</em> melengkapinya dengan
+          gambaran transportasi publik dan hunian vertikal. Pilih variabel untuk
+          melihat perbandingan.
         </p>
 
         <!-- TAB SELECTOR -->
@@ -392,7 +586,7 @@
                 <span>🛰️</span>
                 <p id="sat-ph-name-2014">NTL_2014.png</p>
                 <p class="sat-ph-sub">
-                  Letakkan file di folder yang sama dengan index.html
+                  Letakkan file di folder images/ (sejajar dengan index.html)
                 </p>
               </div>
             </div>
@@ -416,7 +610,7 @@
                 <span>🛰️</span>
                 <p id="sat-ph-name-2024">NTL_2024.png</p>
                 <p class="sat-ph-sub">
-                  Letakkan file di folder yang sama dengan index.html
+                  Letakkan file di folder images/ (sejajar dengan index.html)
                 </p>
               </div>
             </div>
@@ -427,24 +621,18 @@
         <!-- KETERANGAN VARIABEL -->
         <div class="sat-desc" id="sat-desc" data-reveal>
           <h4 id="sat-desc-title">Night-Time Light (NTL)</h4>
-          <p id="sat-desc-body">
-            NTL mengukur intensitas cahaya malam dari citra Landsat 8 Band 6
-            (SWIR). Kawasan dengan peningkatan NTL mencerminkan densifikasi
-            aktivitas ekonomi — pertokoan, perkantoran, dan hunian baru yang
-            beroperasi malam hari. NTL adalah prediktor terkuat dalam model
-            Random Forest dengan feature importance 28,2%.
-          </p>
+          <p id="sat-desc-body"></p>
           <div class="sat-stat-row">
             <div class="sat-stat">
-              <span class="sat-stat-num" id="sat-s1">28,2%</span
-              ><span class="sat-stat-lbl">Feature Importance</span>
+              <span class="sat-stat-num" id="sat-s1">VIIRS DNB</span
+              ><span class="sat-stat-lbl">Sensor</span>
             </div>
             <div class="sat-stat">
-              <span class="sat-stat-num" id="sat-s2">Rank #1</span
-              ><span class="sat-stat-lbl">Dalam Model RF</span>
+              <span class="sat-stat-num" id="sat-s2">+13,12</span
+              ><span class="sat-stat-lbl">Δ tertinggi · Tanah Abang</span>
             </div>
             <div class="sat-stat">
-              <span class="sat-stat-num" id="sat-s3">↑ Meningkat</span
+              <span class="sat-stat-num" id="sat-s3">↑ Semua kecamatan</span
               ><span class="sat-stat-lbl">Tren 2014→2024</span>
             </div>
           </div>
@@ -462,65 +650,33 @@
           Random Forest unggul<br /><em>di hampir semua metrik</em>
         </h2>
         <p class="lead" data-reveal data-delay="2">
-          Meski Balanced Accuracy Decision Tree lebih tinggi pada tahap tuning
-          (0,8143 vs 0,7857), evaluasi performa akhir justru sebaliknya. Random
-          Forest secara konsisten unggul: AUC 0,951 berbanding 0,796, dan
-          Balanced Accuracy 0,943 berbanding 0,814.
+          Dua algoritma <em>tree-based</em> dibandingkan lewat
+          <em>nested cross-validation</em> pada 42 kecamatan. Accuracy keduanya
+          sama (0,905), tetapi Random Forest jauh lebih unggul pada Balanced
+          Accuracy (0,943 vs 0,829), AUC (0,951 vs 0,835), dan Recall (1,000 vs
+          0,714). GBM hanya lebih tinggi pada Precision (0,714 vs 0,636).
         </p>
+
+        <div class="callout" data-reveal>
+          <strong>Mengapa Balanced Accuracy dan AUC?</strong>
+          Label biner tidak seimbang: 35 kecamatan
+          <em>Not Gentrifying</em> (83,3%) berbanding 7
+          <em>Gentrifying</em> (16,7%). Kedua model memakai
+          <em>class_weight = balanced</em>, dan evaluasi memprioritaskan dua
+          metrik yang lebih tahan terhadap ketidakseimbangan kelas dibanding
+          accuracy biasa.
+        </div>
 
         <div class="model-table-wrap" data-reveal>
           <table class="model-table">
             <thead>
               <tr>
                 <th>Metrik</th>
-                <th>Random Forest <span class="metric-tag">TERPILIH</th>
-                <th>Decision Tree</th>
+                <th>Random Forest <span class="metric-tag">TERPILIH</span></th>
+                <th>Gradient Boosting (GBM)</th>
               </tr>
             </thead>
-            <tbody>
-              <tr>
-                <td>AUC</td>
-                <td class="metric-win">
-                  0.951 </span>
-                </td>
-                <td>0.796</td>
-              </tr>
-              <tr>
-                <td>Balanced Accuracy</td>
-                <td class="metric-win">0.943</td>
-                <td>0.814</td>
-              </tr>
-              <tr>
-                <td>Accuracy</td>
-                <td class="metric-win">0.905</td>
-                <td>0.881</td>
-              </tr>
-              <tr>
-                <td>Cohen's Kappa</td>
-                <td class="metric-win">0.778</td>
-                <td>0.667</td>
-              </tr>
-              <tr>
-                <td>F1-Score</td>
-                <td class="metric-win">0.721</td>
-                <td>0.595</td>
-              </tr>
-              <tr>
-                <td>Sensitivity (Recall)</td>
-                <td class="metric-win">1.000</td>
-                <td>0.714</td>
-              </tr>
-              <tr>
-                <td>Precision</td>
-                <td class="metric-win">0.636</td>
-                <td>0.625</td>
-              </tr>
-              <tr>
-                <td>Specificity</td>
-                <td>0.886</td>
-                <td class="metric-win">0.914</td>
-              </tr>
-            </tbody>
+            <tbody id="model-table-body"></tbody>
           </table>
         </div>
 
@@ -540,17 +696,52 @@
             Intensitas cahaya malam adalah sinyal terkuat
           </h3>
           <p class="body-copy" style="margin-bottom: 1.5rem">
-            Night-Time Light (NTL) memiliki kontribusi terbesar (28,2%) karena
-            kawasan yang mengalami gentrifikasi umumnya ditandai meningkatnya
-            densifikasi ekonomi yang tecermin dalam cahaya malam yang lebih
-            terang. LST (13,6%) menempati posisi kedua — perubahan kondisi
-            termal akibat intensifikasi aktivitas perkotaan. Variabel
-            sosial-ekonomi SKTM (10,1%) dan kepadatan penduduk (9,2%) juga
-            berkontribusi signifikan. Secara keseluruhan, tidak ada satu
-            variabel yang mendominasi secara berlebihan — mencerminkan bahwa
-            gentrifikasi adalah fenomena multidimensi.
+            Night-Time Light (NTL) memberi kontribusi terbesar (28,2%), diikuti
+            LST (13,6%): perubahan intensitas aktivitas dan kondisi termal
+            kawasan paling membantu model membedakan kecamatan. Variabel
+            sosial-ekonomi juga berperan, yaitu kemiskinan berbasis SKTM (10,1%)
+            dan kepadatan penduduk (9,2%), disusul jumlah bangunan kumuh (6,2%)
+            dan NDBI (5,5%). Tidak ada satu variabel yang mendominasi
+            berlebihan, sehingga <em>new-build gentrification</em> dibaca
+            sebagai fenomena multidimensi yang perlu dideteksi lewat kombinasi
+            indikator.
           </p>
           <div class="fi-chart-container" id="fi-chart-container"></div>
+        </div>
+
+        <div class="stab-block" data-reveal>
+          <p class="eyebrow" style="margin-bottom: 0.75rem">
+            Kestabilan Prediksi — Bootstrap 50 Iterasi
+          </p>
+          <h3
+            style="
+              font-family: var(--serif);
+              font-style: italic;
+              font-size: 1.5rem;
+              color: var(--bone);
+              margin-bottom: 0.5rem;
+            "
+          >
+            Seberapa yakin model pada setiap kecamatan?
+          </h3>
+          <p class="body-copy" style="margin-bottom: 1.5rem">
+            Karena algoritma <em>tree-based</em> memuat unsur acak, prediksi
+            diuji ulang dengan <em>bootstrap resampling</em>. IQR yang sempit
+            berarti prediksi konsisten; IQR yang lebar berarti prediksi lebih
+            sensitif terhadap komposisi data latih. Pola probabilitas prediksi
+            Random Forest sangat mirip dengan median bootstrap, sehingga
+            probabilitas prediksi dipakai sebagai dasar kategori.
+          </p>
+          <div class="stab-grid">
+            <div class="stab-card stab-good">
+              <h4>Paling konsisten (IQR terkecil)</h4>
+              <ul id="stab-low"></ul>
+            </div>
+            <div class="stab-card stab-warn">
+              <h4>Paling sensitif (IQR terbesar)</h4>
+              <ul id="stab-high"></ul>
+            </div>
+          </div>
         </div>
       </div>
     </section>
@@ -558,7 +749,11 @@
     <!-- ══════════════════════════════════════
      PETA
      ══════════════════════════════════════ -->
-    <section class="section-wrap" id="peta-section" data-section="Peta Risiko">
+    <section
+      class="section-wrap"
+      id="peta-section"
+      data-section="Peta Probabilitas"
+    >
       <div class="inner-wide">
         <p class="eyebrow" data-reveal>04 — Peta Interaktif</p>
         <h2 class="section-headline" data-reveal data-delay="1">
@@ -570,10 +765,13 @@
           data-delay="2"
           style="margin-bottom: 1.5rem"
         >
-          Pola spasial yang terbentuk menunjukkan gradasi yang jelas dari pusat ke pinggiran kota. Kecamatan-kecamatan 
-          dengan probabilitas tertinggi terkonsentrasi di Jakarta Pusat dan Jakarta Selatan 
-          bagian utara, membentuk inti gentrifikasi yang dikelilingi oleh lapisan kecamatan 
-          berkategori Tinggi dan Sedang secara konsentris ke arah luar.
+          Probabilitas menurun bertahap dari pusat ke pinggiran (pola
+          <em>center-periphery</em>). Lima kecamatan berkategori Sangat Tinggi,
+          yaitu Setia Budi, Menteng, Gambir, Kebayoran Baru, dan Kelapa Gading,
+          dikelilingi kecamatan berkategori Tinggi dan Sedang yang membentuk
+          zona transisi. Kategori Rendah berada di pinggiran selatan dan
+          tenggara (Jagakarsa, Pasar Rebo, Ciracas, Cipayung) serta barat dan
+          timur laut (Kali Deres, Cilincing).
         </p>
 
         <div class="peta-toolbar" data-reveal>
@@ -621,15 +819,20 @@
                 style="display: none"
               >
                 <div id="kec-name">—</div>
-                <div id="kec-prob-label">Probabilitas Gentrifikasi</div>
+                <div id="kec-prob-label">
+                  Probabilitas New-Build Gentrification
+                </div>
                 <div id="kec-prob-track"><div id="kec-prob-fill"></div></div>
                 <div id="kec-prob-pct">—</div>
                 <span id="kec-kategori">—</span>
+                <div id="kec-boot"></div>
               </div>
             </div>
 
             <div class="peta-legend">
-              <div class="legend-title">Probabiliatas Gentrifikasi</div>
+              <div class="legend-title">
+                Probabilitas New-Build Gentrification
+              </div>
               <div class="legend-row" data-filter="Sangat Tinggi">
                 <div
                   class="legend-swatch"
@@ -669,6 +872,12 @@
           </div>
         </div>
 
+        <p class="map-note" data-reveal>
+          Cara membaca: probabilitas menunjukkan seberapa mirip karakteristik
+          suatu kecamatan pada 2024 dengan kecamatan yang teridentifikasi
+          mengalami <em>new-build gentrification</em> pada 2014–2024 (Knorr,
+          2019), bukan kepastian bahwa kejadian tersebut akan berlangsung.
+        </p>
         <p
           style="
             margin-top: 1rem;
@@ -678,26 +887,131 @@
           "
           data-reveal
         >
-          Sumber: Proyeksi Random Forest · Data 2014–2024 · GEE Landsat 8 · OSM
-          · PODES · NJOP Bapenda DKI · Basemap © CartoDB
+          Sumber: Prediksi Random Forest · Landsat 8 &amp; VIIRS DNB (GEE) ·
+          OpenStreetMap · PODES · KCDA · NJOP Bapenda DKI · Basemap © CartoDB
         </p>
       </div>
     </section>
 
     <!-- ══════════════════════════════════════
-     Visualisasi  
+     VALIDASI EKSTERNAL — DATA PENGGUSURAN
      ══════════════════════════════════════ -->
-    <section class="section-wrap" id="visualisasi" data-section="visualisasi">
-      <div class="inner">
-        <p class="eyebrow" data-reveal>05 — Visualisasi Data Hasil Prediksi</p>
+    <section class="section-wrap" id="validasi" data-section="Validasi">
+      <div class="inner-wide">
+        <p class="eyebrow" data-reveal>05 — Validasi Eksternal</p>
         <h2 class="section-headline" data-reveal data-delay="1">
-          42 kecamatan,<br /><em>empat kategori gentrifikasi</em>
+          Penggusuran terjadi di kawasan<br /><em
+            >yang sedang bertransformasi</em
+          >
+        </h2>
+        <p class="lead" data-reveal data-delay="2">
+          Sebagai pembanding, hasil prediksi dicocokkan dengan 116 kasus
+          penggusuran permukiman yang didokumentasikan LBH Jakarta pada
+          2016–2018, dengan total 6.072 kepala keluarga (KK) terdampak.
+          Penggusuran merepresentasikan salah satu bentuk <em>displacement</em>,
+          dan datanya tidak dipakai dalam pelabelan, pelatihan, maupun prediksi
+          model.
+        </p>
+
+        <div class="val-stats" data-reveal data-delay="3">
+          <div class="val-stat">
+            <span class="val-num">116</span>
+            <span class="val-lbl"
+              >Kasus penggusuran<br />6.072 KK terdampak</span
+            >
+          </div>
+          <div class="val-stat">
+            <span class="val-num">66,4%</span>
+            <span class="val-lbl"
+              >Kasus (77) berada di kategori<br />Sedang dan Tinggi</span
+            >
+          </div>
+          <div class="val-stat">
+            <span class="val-num">87,8%</span>
+            <span class="val-lbl"
+              >KK terdampak berada di kategori<br />Sedang dan Tinggi</span
+            >
+          </div>
+        </div>
+
+        <div class="val-layout" data-reveal data-delay="2">
+          <div class="chart-card">
+            <div class="chart-title">Kasus dan KK Terdampak per Kategori</div>
+            <div class="chart-sub">
+              Persentase dari total 116 kasus dan 6.072 KK
+            </div>
+            <canvas id="chart-validasi" height="300"></canvas>
+          </div>
+
+          <div class="chart-card">
+            <div class="chart-title">Distribusi per Kategori Prediksi</div>
+            <div class="chart-sub">Overlay titik dan buffer penggusuran</div>
+            <table class="val-table">
+              <thead>
+                <tr>
+                  <th>Kategori</th>
+                  <th>Kasus</th>
+                  <th>KK</th>
+                </tr>
+              </thead>
+              <tbody id="val-table-body"></tbody>
+            </table>
+
+            <div class="chart-sub" style="margin-top: 1.75rem">
+              Ketelitian lokasi kasus
+            </div>
+            <ul class="val-precision">
+              <li>
+                <span>36 kasus · 31,0%</span>
+                Alamat atau bangunan spesifik → titik lokasi, buffer 100 m
+              </li>
+              <li>
+                <span>73 kasus · 62,9%</span>
+                Nama ruas jalan, RT/RW → titik pada ruas jalan, buffer 250 m
+              </li>
+              <li>
+                <span>7 kasus · 6,0%</span>
+                Kelurahan atau kecamatan → titik pusat wilayah, buffer 500 m
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="pull-note" data-reveal style="margin-top: 2.5rem">
+          <p>
+            Kasus dan KK terdampak paling banyak berada di kategori Tinggi dan
+            Sedang, artinya penggusuran banyak terjadi pada kawasan yang masih
+            mengalami proses transformasi, bukan hanya di kawasan dengan
+            probabilitas tertinggi. Ini sejalan dengan konsep <em>rent gap</em>:
+            perubahan kawasan dan reinvestasi berlangsung ketika ada kesenjangan
+            antara nilai lahan aktual dan potensinya. Porsi kecil di kategori
+            Sangat Tinggi tidak berarti <em>displacement</em> tidak terjadi di
+            sana; sebagian kawasan itu mungkin sudah bertransformasi lebih awal
+            sehingga tidak seluruhnya tercakup periode penelitian.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══════════════════════════════════════
+     Visualisasi
+     ══════════════════════════════════════ -->
+    <section
+      class="section-wrap"
+      id="visualisasi"
+      data-section="Visualisasi Data"
+    >
+      <div class="inner">
+        <p class="eyebrow" data-reveal>06 — Visualisasi Data Hasil Prediksi</p>
+        <h2 class="section-headline" data-reveal data-delay="1">
+          42 kecamatan,<br /><em>empat kategori probabilitas</em>
         </h2>
         <p class="lead" data-reveal data-delay="2" style="margin-bottom: 2rem">
           Sebanyak 5 kecamatan (11,9%) masuk kategori Sangat Tinggi, 12
           kecamatan (28,6%) kategori Tinggi, 15 kecamatan (35,7%) kategori
-          Sedang, dan 10 kecamatan (23,8%) kategori Rendah. Klik tab untuk
-          melihat daftar kecamatan per kategori.
+          Sedang, dan 10 kecamatan (23,8%) kategori Rendah. Probabilitasnya
+          berkisar dari 7,4% (Pasar Rebo) hingga 69,6% (Setia Budi). Klik tab
+          untuk melihat daftar kecamatan per kategori.
         </p>
 
         <div class="risk-tabs" data-reveal>
@@ -708,7 +1022,11 @@
           <button class="risk-tab" data-cat="sedang">🟡 Sedang (15)</button>
           <button class="risk-tab" data-cat="rendah">🔵 Rendah (10)</button>
         </div>
-
+        <div class="rank-head" aria-hidden="true">
+          <span>No.</span>
+          <span>Kecamatan <small>· median bootstrap &amp; IQR</small></span>
+          <span>Probabilitas prediksi</span>
+        </div>
         <div id="panel-sangat" class="tab-panel active">
           <div class="ranking-list"></div>
         </div>
@@ -726,27 +1044,29 @@
       <div class="inner-wide" style="margin-top: 4rem">
         <div class="chart-grid" data-reveal data-delay="2">
           <div class="chart-card">
-            <div class="chart-title">Distribusi Kategori Risiko</div>
+            <div class="chart-title">Distribusi Kategori Probabilitas</div>
             <div class="chart-sub">42 kecamatan, 4 kategori</div>
             <canvas id="chart-donut" height="250"></canvas>
           </div>
           <div class="chart-card">
             <div class="chart-title">
-              Top 15 Kecamatan — Probabilitas Gentrifikasi
+              Top 15 Kecamatan — Probabilitas New-Build Gentrification
             </div>
-            <div class="chart-sub">
-              Proyeksi model Random Forest ke data 2024
-            </div>
+            <div class="chart-sub">Prediksi Random Forest pada data 2024</div>
             <canvas id="chart-topbar" height="300"></canvas>
           </div>
           <div class="chart-card">
             <div class="chart-title">Perbandingan Performa Model</div>
-            <div class="chart-sub">Random Forest vs Decision Tree</div>
+            <div class="chart-sub">
+              Random Forest vs Gradient Boosting (GBM)
+            </div>
             <canvas id="chart-radar" height="280"></canvas>
           </div>
           <div class="chart-card">
             <div class="chart-title">Sebaran Probabilitas — 42 Kecamatan</div>
-            <div class="chart-sub">Berdasarkan ranking model final</div>
+            <div class="chart-sub">
+              Probabilitas prediksi vs median bootstrap (50 iterasi)
+            </div>
             <canvas id="chart-scatter" height="280"></canvas>
           </div>
         </div>
@@ -758,16 +1078,17 @@
      ══════════════════════════════════════ -->
     <section class="section-wrap" id="interpretasi" data-section="Temuan">
       <div class="inner">
-        <p class="eyebrow" data-reveal>06 — Temuan Penelitian</p>
+        <p class="eyebrow" data-reveal>07 — Temuan Penelitian</p>
         <h2 class="section-headline" data-reveal data-delay="1">
           Pola spasial yang<br /><em>tidak terbentuk secara kebetulan</em>
         </h2>
         <p class="lead" data-reveal data-delay="2">
-          Hasil prediksi menunjukkan pola gradasi yang jelas dari pusat ke
-          pinggiran kota, konsisten dengan hasil klasterisasi K-Means dan
-          mengonfirmasi bahwa tekanan gentrifikasi pada 2024 telah merambah
-          lebih jauh ke wilayah-wilayah yang sebelumnya berada dalam klaster
-          transisi.
+          Prediksi menunjukkan pola <em>center-periphery</em> yang jelas dan
+          konsisten dengan hasil klasterisasi K-Means. Uji
+          <em>K-Color Join Count</em> menegaskan ketiga klaster mengelompok
+          secara spasial (p &lt; 0,05), dan validasi dengan data penggusuran
+          2016–2018 memperlihatkan kasus terbanyak berada di kawasan berkategori
+          Tinggi dan Sedang, yaitu kawasan yang masih dalam proses transformasi.
         </p>
 
         <div class="finding-grid" data-reveal data-delay="3">
@@ -791,23 +1112,27 @@
             <h3>Inti gentrifikasi Jakarta</h3>
             <ul>
               <li>
-                Setia Budi, Menteng, Gambir, Kebayoran Baru, Kelapa Gading —
-                probabilitas di atas 50%
+                Setia Budi (69,6%), Menteng (61,4%), Gambir (55,8%), Kebayoran
+                Baru (54,2%), dan Kelapa Gading (50,9%), seluruhnya di atas 50%
               </li>
               <li>
-                Kelima kecamatan ini juga masuk Klaster 1 (Gentrifikasi Tinggi)
-                pada tahap K-Means, artinya tren ini sudah berlangsung sepanjang
-                2014–2024
+                Kelimanya juga tergabung dalam Klaster 1 (Gentrifikasi Tinggi)
+                pada tahap K-Means, yaitu kecamatan dengan kenaikan NJOP, LST,
+                NTL, dan aksesibilitas transportasi paling kuat
               </li>
               <li>
-                Kawasan Menteng, Setia Budi, dan Gambir merupakan kawasan dengan
-                konsentrasi fungsi komersial dan perkantoran tinggi, dan
-                mencatat kenaikan NTL tertinggi
+                Menteng, Setia Budi, dan Gambir berada di pusat aktivitas bisnis
+                dan pemerintahan. Gambir mencatat kenaikan NTL tertinggi kedua
+                (+12,89) dan Menteng kenaikan LST tertinggi (+3,34 °C)
               </li>
               <li>
-                Kelapa Gading masuk kategori ini meski secara geografis terpisah
+                Kelapa Gading di Jakarta Utara masuk kategori ini meski terpisah
                 dari koridor pusat kota, mencerminkan perkembangannya sebagai
                 pusat hunian dan komersial premium
+              </li>
+              <li>
+                Validasi: 17 kasus penggusuran (14,7%) dengan 223 KK terdampak
+                (3,7%)
               </li>
             </ul>
           </div>
@@ -829,7 +1154,7 @@
             <span class="fc-tag" style="color: var(--risk-2)"
               >🟠 Tinggi — 12 Kecamatan</span
             >
-            <h3>Zona perluasan tekanan</h3>
+            <h3>Zona transisi di sekitar inti</h3>
             <ul>
               <li>
                 Tanah Abang, Jatinegara, Cakung, Pademangan, Tanjung Priok,
@@ -837,14 +1162,17 @@
                 Penjaringan, Kemayoran, Cilandak
               </li>
               <li>
-                Sebagian besar berbatasan langsung dengan koridor gentrifikasi
-                pusat — mengindikasikan potensi penyebaran tekanan dari kawasan
-                inti
+                Tanah Abang (48,0%) dan Senen (41,9%) termasuk Klaster 1, namun
+                probabilitas prediksinya masih di bawah 50%
               </li>
               <li>
-                Pola ini konsisten dengan concentric zone model: gentrifikasi
-                menyebar dari pusat ke zona-zona di sekitarnya seiring
-                meningkatnya tekanan harga di kawasan inti
+                Kecamatan kategori ini, bersama kategori Sedang, mengelilingi
+                inti dan membentuk zona transisi, pola yang sejalan dengan
+                <em>Concentric Zone Model</em>
+              </li>
+              <li>
+                Validasi: 40 kasus penggusuran (34,5%) dengan 4.022 KK terdampak
+                (66,2%), porsi KK terbesar di antara semua kategori
               </li>
             </ul>
           </div>
@@ -866,7 +1194,7 @@
             <span class="fc-tag" style="color: var(--risk-3)"
               >🟡 Sedang — 15 Kecamatan</span
             >
-            <h3>Zona penyangga yang luas</h3>
+            <h3>Cincin perantara yang luas</h3>
             <ul>
               <li>
                 Pulo Gadung, Kembangan, Johar Baru, Tebet, Palmerah, Taman Sari,
@@ -874,13 +1202,13 @@
                 Pasar Minggu, Pancoran, Tambora, Cengkareng
               </li>
               <li>
-                Membentuk cincin penyangga di antara inti gentrifikasi dan
-                kawasan yang masih relatif stabil
+                Berada di antara kawasan berprobabilitas tinggi dan kawasan
+                pinggiran yang probabilitasnya rendah
               </li>
+              <li>Cengkareng (20,4%) berada tepat di ambang batas kategori</li>
               <li>
-                Kawasan Jakarta Utara, Jakarta Barat, dan Jakarta Timur yang
-                masuk kategori ini masih menunjukkan tekanan sosial tinggi namun
-                belum disertai kenaikan nilai lahan secara signifikan
+                Validasi: 37 kasus penggusuran (31,9%) dengan 1.310 KK terdampak
+                (21,6%)
               </li>
             </ul>
           </div>
@@ -909,26 +1237,53 @@
                 Deres, Ciracas, Cipayung, Pesanggrahan, Pasar Rebo
               </li>
               <li>
-                Seluruhnya berada di wilayah pinggiran — Jakarta Timur bagian
-                selatan-timur dan Jakarta Barat bagian barat — dengan
-                aksesibilitas yang lebih terbatas terhadap pusat kota
+                Terutama di pinggiran selatan dan tenggara, serta barat dan
+                timur laut Jakarta, dengan aksesibilitas ke pusat kota yang
+                lebih terbatas
               </li>
               <li>
-                Keterbatasan aksesibilitas inilah yang menjadikan
-                kawasan-kawasan ini lebih terlindungi dari tekanan gentrifikasi
-                dalam jangka pendek
+                Karakteristiknya belum menunjukkan pola yang mengarah pada
+                <em>new-build gentrification</em>, sehingga lebih terlindungi
+                dari tekanan gentrifikasi dalam jangka pendek
+              </li>
+              <li>
+                Validasi: 22 kasus penggusuran (19,0%) dengan 517 KK terdampak
+                (8,5%)
               </li>
             </ul>
           </div>
         </div>
 
+        <div class="limit-box" data-reveal>
+          <h4>Batasan penelitian</h4>
+          <ul>
+            <li>
+              Wilayah studi mencakup 42 kecamatan di lima kota administrasi;
+              Kabupaten Kepulauan Seribu dikeluarkan karena terpisah oleh laut.
+            </li>
+            <li>
+              Analisis hanya membandingkan dua titik waktu, 2014 dan 2024,
+              sesuai ketersediaan data multisumber.
+            </li>
+            <li>
+              Pendekatan sepenuhnya kuantitatif dengan data sekunder; faktor
+              kualitatif seperti kebijakan politik, konflik sosial, dan persepsi
+              warga tidak dianalisis.
+            </li>
+            <li>
+              Lokasi penggusuran pada data validasi memiliki ketelitian yang
+              beragam, dan <em>web story</em> ini berfungsi sebagai media
+              visualisasi statis tanpa pembaruan data <em>real time</em>.
+            </li>
+          </ul>
+        </div>
+
         <p class="body-copy" data-reveal style="margin-top: 2rem">
-          Penelitian ini diharapkan menjadi referensi tambahan dalam memantau
-          dinamika kawasan dan menjadi bahan pertimbangan bagi pemangku
-          kepentingan dalam memahami dampak gentrifikasi terhadap kelompok
-          masyarakat rentan — sejalan dengan arah RPJMN 2025–2029 yang
-          menetapkan pembangunan kota inklusif, berketahanan, maju, dan
-          menyejahterakan.
+          Penelitian ini diharapkan menjadi instrumen pendukung keputusan
+          berbasis data bagi pemerintah daerah dan perencana tata ruang, agar
+          kebijakan tata ruang dan penyediaan hunian lebih antisipatif dan tepat
+          sasaran dalam melindungi kelompok berpendapatan rendah dari dampak
+          <em>new-build gentrification</em>.
         </p>
       </div>
     </section>
@@ -952,74 +1307,76 @@
     <script>
       /* ═══════════════════════════════════════════════════
        SATELLITE SECTION — image swap viewer
+       Isi mengacu pada Bab IV skripsi (Hasil Identifikasi
+       Perubahan Karakteristik Fisik dan Infrastruktur)
     ═══════════════════════════════════════════════════ */
       (function () {
         const SAT_DATA = {
           NTL: {
             title: "Night-Time Light (NTL)",
-            body: "NTL diukur dari citra Landsat 8 Band 6 (SWIR) untuk menangkap intensitas cahaya buatan di malam hari. Peningkatan nilai NTL mencerminkan densifikasi aktivitas ekonomi di suatu kawasan, seperti pertokoan, perkantoran, dan hunian baru yang beroperasi malam hari. Dalam konteks gentrifikasi, NTL menjadi indikator bergesernya karakter kawasan menuju aktivitas bernilai ekonomi lebih tinggi.",
+            body: "NTL dari sensor VIIRS Day/Night Band merekam cahaya buatan di malam hari sebagai proksi intensitas aktivitas ekonomi. Seluruh kecamatan mencatat kenaikan NTL antara 2014 dan 2024. Peningkatan terbesar terjadi di Tanah Abang (+13,12), Gambir (+12,89), dan Tebet (+12,82), kawasan dengan konsentrasi fungsi komersial dan perkantoran yang tinggi, sedangkan kenaikan terendah tercatat di Sawah Besar (+3,86), Pademangan (+4,25), dan Tambora (+6,45) yang didominasi permukiman padat. NTL juga menjadi prediktor terkuat dalam model Random Forest (feature importance 28,2%).",
             arrow: "↑",
             change: "Meningkat",
-            s1: "Band 6 SWIR",
-            l1: "Sumber Band",
-            s2: "Landsat 8",
-            l2: "Satelit",
-            s3: "↑ Meningkat",
+            s1: "VIIRS DNB",
+            l1: "Sensor",
+            s2: "+13,12",
+            l2: "Δ tertinggi · Tanah Abang",
+            s3: "↑ Semua kecamatan",
             l3: "Tren 2014→2024",
             f14: "images/NTL_2014.png",
             f24: "images/NTL_2024.png",
           },
           NDBI: {
             title: "Normalized Difference Built-Up Index (NDBI)",
-            body: "NDBI dihitung dari rasio Band SWIR dan NIR Landsat 8 untuk mengidentifikasi luas kawasan terbangun. Nilai NDBI yang meningkat menandai ekspansi fisik berupa gedung, jalan, dan infrastruktur baru. Dalam konteks gentrifikasi, NDBI mencerminkan transformasi lahan yang menyertai masuknya investasi properti ke suatu kawasan.",
-            arrow: "↑",
-            change: "Ekspansi terbangun",
+            body: "NDBI dihitung dari rasio pita SWIR dan NIR Landsat 8 untuk menandai dominasi permukaan terbangun. Perubahannya beragam antarkecamatan. Dalam konsep new-build gentrification, perombakan permukiman padat dapat menurunkan NDBI, seperti terlihat di Kebayoran Baru (−0,0059), Tanah Abang (−0,0058), Menteng (−0,0058), dan Cilincing (−0,0078). Sebaliknya, kenaikan tertinggi tercatat di pinggiran selatan: Pasar Rebo (+0,0196), Ciracas (+0,0176), dan Jagakarsa (+0,0137).",
+            arrow: "↕",
+            change: "Bervariasi",
             s1: "SWIR & NIR",
-            l1: "Sumber Band",
-            s2: "Landsat 8",
-            l2: "Satelit",
-            s3: "↑ Meningkat",
-            l3: "Tren 2014→2024",
+            l1: "Sumber Pita",
+            s2: "+0,0196",
+            l2: "Δ tertinggi · Pasar Rebo",
+            s3: "↕ Beragam",
+            l3: "Arah 2014→2024",
             f14: "images/NDBI_2014.png",
             f24: "images/NDBI_2024.png",
           },
           NDVI: {
             title: "Normalized Difference Vegetation Index (NDVI)",
-            body: "NDVI dihitung dari rasio Band NIR dan Red Landsat 8 untuk mengukur kerapatan vegetasi permukaan. Penurunan nilai NDVI menandai konversi lahan hijau menjadi permukaan terbangun. Dalam konteks gentrifikasi, NDVI menjadi indikator perubahan penggunaan lahan yang terjadi seiring pembangunan dan densifikasi kawasan.",
-            arrow: "↓",
-            change: "Vegetasi berkurang",
+            body: "NDVI dihitung dari pita NIR dan Red Landsat 8 untuk mengukur kerapatan vegetasi. Perubahannya kecil (Δ NDVI −0,015 hingga +0,015) dan berlawanan arah antarwilayah. Vegetasi menurun di pinggiran selatan akibat konversi lahan hijau menjadi lahan terbangun, yaitu Pasar Rebo (−0,0157), Cipayung (−0,0156), Ciracas (−0,0147), dan Jagakarsa (−0,0146). Sebaliknya, NDVI naik di pusat kota yang mengalami penghijauan: Tanah Abang (+0,0157), Menteng (+0,0137), dan Setia Budi (+0,0096).",
+            arrow: "⇅",
+            change: "Dua arah",
             s1: "NIR & Red",
-            l1: "Sumber Band",
-            s2: "Landsat 8",
-            l2: "Satelit",
-            s3: "↓ Menurun",
-            l3: "Tren 2014→2024",
+            l1: "Sumber Pita",
+            s2: "−0,0157",
+            l2: "Δ terendah · Pasar Rebo",
+            s3: "⇅ Pinggiran ↓ · Pusat ↑",
+            l3: "Arah 2014→2024",
             f14: "images/NDVI_2014.png",
             f24: "images/NDVI_2024.png",
           },
           LST: {
             title: "Land Surface Temperature (LST)",
-            body: "LST diukur dari saluran thermal Landsat 8 untuk menangkap suhu permukaan tanah. Peningkatan nilai LST mencerminkan intensifikasi Urban Heat Island akibat hilangnya vegetasi dan dominasi permukaan keras. Dalam konteks gentrifikasi, LST menjadi indikator dampak fisik dari pembangunan yang masif di suatu kawasan.",
+            body: "LST diturunkan dari pita termal Landsat 8 (TIRS) untuk mengukur suhu permukaan lahan. Sebagian besar kecamatan mengalami kenaikan LST antara 2014 dan 2024, tertinggi di Jakarta Pusat: Menteng (+3,34 °C), Senen (+3,03 °C), dan Gambir (+2,83 °C). Pola ini konsisten dengan meluasnya permukaan kedap air akibat pembangunan baru, seperti perumahan dan depo MRT yang menggantikan lahan kosong, rawa, dan ruang terbuka. LST adalah prediktor terkuat kedua dalam model (13,6%).",
             arrow: "↑",
             change: "Suhu meningkat",
-            s1: "Band Thermal",
-            l1: "Sumber Band",
-            s2: "Landsat 8",
-            l2: "Satelit",
+            s1: "Pita Termal",
+            l1: "Sumber Pita (TIRS)",
+            s2: "+3,34 °C",
+            l2: "Δ tertinggi · Menteng",
             s3: "↑ Meningkat",
             l3: "Tren 2014→2024",
             f14: "images/LST_2014.png",
             f24: "images/LST_2024.png",
           },
           POI_TRANS: {
-            title: "Point of Interest — Infrastruktur Transportasi",
-            body: "Data infrastruktur transportasi bersumber dari OpenStreetMap, mencakup stasiun MRT, LRT, KRL Commuter Line, dan halte TransJakarta. Kepadatan dan pertumbuhan titik transportasi mencerminkan peningkatan aksesibilitas suatu kawasan. Dalam konteks gentrifikasi, infrastruktur transportasi massal menjadi salah satu pemicu rent gap yang mendorong masuknya investasi ke kawasan sekitarnya.",
+            title: "Point of Interest — Transportasi Publik",
+            body: "Pada 2014, transportasi publik Jakarta hanya terdiri atas BRT Transjakarta dan KRL Commuter Line. Pada 2024 hadir MRT Jakarta, LRT Jakarta, dan LRT Jabodebek, disertai perluasan koridor Transjakarta dari 12 menjadi 14 koridor. Daftar halte dan stasiun di-geocoding melalui OpenStreetMap, lalu dihitung densitasnya per kecamatan. Bertambahnya simpul transportasi meningkatkan aksesibilitas dan daya tarik kawasan bagi investasi, mekanisme yang sejalan dengan rent gap theory. Perubahan ini terlihat jelas di Kebayoran Baru, Setia Budi, dan Kelapa Gading.",
             arrow: "↑",
             change: "Akses bertambah",
-            s1: "OpenStreetMap",
-            l1: "Sumber Data",
-            s2: "MRT/LRT/KRL",
-            l2: "Jenis Transportasi",
+            s1: "12 → 14",
+            l1: "Koridor Transjakarta",
+            s2: "+ MRT, LRT",
+            l2: "Moda baru 2024",
             s3: "↑ Bertambah",
             l3: "Tren 2014→2024",
             f14: "images/POI_TRANS_2014.png",
@@ -1027,13 +1384,13 @@
           },
           POI_HV: {
             title: "Point of Interest — Hunian Vertikal",
-            body: "Data hunian vertikal bersumber dari inventarisasi Murdaka (2025) yang mencatat 245 unit apartemen dan kondominium di Jakarta. Kepadatan hunian vertikal terkonsentrasi di koridor Sudirman, Thamrin, Kuningan, Gatot Subroto, dan Kemang, dengan pertumbuhan terbesar terjadi pada dekade 2010-an. Dalam konteks gentrifikasi, hunian vertikal menjadi penanda masuknya segmen penghuni baru dengan daya beli lebih tinggi ke suatu kawasan.",
+            body: "Data hunian vertikal bersumber dari inventarisasi Murdaka (2025) melalui web scraping tahun 2024, yang mencatat setidaknya 245 hunian vertikal di Jakarta, lalu di-geocoding melalui OpenStreetMap. Lonjakan pembangunan terbesar terjadi pada dekade 2010-an dengan 119 bangunan baru, terkonsentrasi di koridor pusat kota. Dalam konteks new-build gentrification, hunian vertikal menjadi penanda masuknya investasi sekaligus sumber tekanan displacement bagi penduduk berpendapatan rendah.",
             arrow: "↑",
             change: "245 hunian vertikal",
             s1: "Murdaka (2025)",
             l1: "Sumber Data",
-            s2: "245 Unit",
-            l2: "Total Tercatat",
+            s2: "119 bangunan",
+            l2: "Dekade 2010-an",
             s3: "↑ Bertambah",
             l3: "Tren 2014→2024",
             f14: "images/POI_HV_2014.png",

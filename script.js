@@ -1,58 +1,77 @@
 /* ═══════════════════════════════════════════════════════════
    JAKARTA BERGERAK — Modern Web Story JS
    Cinematic · Interactive · Surprising
+
+   Data dan narasi mengacu pada skripsi:
+   "Analisis Fenomena New-Build Gentrification di Jakarta Menggunakan
+    Data Multisumber dengan Pendekatan Machine Learning"
    ═══════════════════════════════════════════════════════════ */
 
 "use strict";
 
 // ─────────────────────────────────────────────
+// HELPER — format angka gaya Indonesia (koma desimal)
+// ─────────────────────────────────────────────
+const fmt = (n, d = 1) =>
+  Number(n).toLocaleString("id-ID", { minimumFractionDigits: d, maximumFractionDigits: d });
+const fmtPct = (p, d = 1) => fmt(p * 100, d) + "%";
+
+// ─────────────────────────────────────────────
 // DATA
 // ─────────────────────────────────────────────
+
+// Tabel 20 skripsi — Probabilitas New-Build Gentrification pada 42 kecamatan.
+//   prob        : probabilitas prediksi Random Forest (dasar penetapan kategori)
+//   boot_median : median dari 50 iterasi bootstrap resampling
+//   iqr         : rentang interkuartil dari 50 probabilitas bootstrap
+// Kategori mengikuti Tabel 8 (Knorr, 2019):
+//   Sangat Tinggi > 0,50 · Tinggi 0,35–0,49 · Sedang 0,20–0,34 · Rendah < 0,20
 const PREDICTION_DATA = [
-  { kecamatan:"SETIA BUDI",       prob:0.6959, mc_median:0.6614, mc_min:0.4614, mc_max:0.7928, kategori:"Sangat Tinggi" },
-  { kecamatan:"MENTENG",          prob:0.6138, mc_median:0.5882, mc_min:0.4437, mc_max:0.7525, kategori:"Sangat Tinggi" },
-  { kecamatan:"GAMBIR",           prob:0.5582, mc_median:0.5556, mc_min:0.3133, mc_max:0.7480, kategori:"Sangat Tinggi" },
-  { kecamatan:"KEBAYORAN BARU",   prob:0.5421, mc_median:0.5304, mc_min:0.3510, mc_max:0.7406, kategori:"Sangat Tinggi" },
-  { kecamatan:"KELAPA GADING",    prob:0.5094, mc_median:0.5130, mc_min:0.3530, mc_max:0.7033, kategori:"Sangat Tinggi" },
-  { kecamatan:"TANAH ABANG",      prob:0.4799, mc_median:0.5020, mc_min:0.2849, mc_max:0.6846, kategori:"Tinggi" },
-  { kecamatan:"JATINEGARA",       prob:0.4490, mc_median:0.4302, mc_min:0.2012, mc_max:0.6298, kategori:"Tinggi" },
-  { kecamatan:"CAKUNG",           prob:0.4443, mc_median:0.3662, mc_min:0.0898, mc_max:0.5929, kategori:"Tinggi" },
-  { kecamatan:"PADEMANGAN",       prob:0.4377, mc_median:0.4580, mc_min:0.1584, mc_max:0.6352, kategori:"Tinggi" },
-  { kecamatan:"TANJUNG PRIOK",    prob:0.4316, mc_median:0.3805, mc_min:0.1958, mc_max:0.6091, kategori:"Tinggi" },
-  { kecamatan:"SENEN",            prob:0.4191, mc_median:0.4147, mc_min:0.1958, mc_max:0.6398, kategori:"Tinggi" },
-  { kecamatan:"KEBON JERUK",      prob:0.4154, mc_median:0.3754, mc_min:0.2027, mc_max:0.5946, kategori:"Tinggi" },
-  { kecamatan:"MAMPANG PRAPATAN", prob:0.3999, mc_median:0.3982, mc_min:0.0395, mc_max:0.6462, kategori:"Tinggi" },
-  { kecamatan:"GROGOL PETAMBURAN",prob:0.3866, mc_median:0.3771, mc_min:0.2043, mc_max:0.5222, kategori:"Tinggi" },
-  { kecamatan:"PENJARINGAN",      prob:0.3733, mc_median:0.4043, mc_min:0.1706, mc_max:0.6166, kategori:"Tinggi" },
-  { kecamatan:"KEMAYORAN",        prob:0.3719, mc_median:0.4150, mc_min:0.2040, mc_max:0.5917, kategori:"Tinggi" },
-  { kecamatan:"CILANDAK",         prob:0.3694, mc_median:0.3783, mc_min:0.0374, mc_max:0.6112, kategori:"Tinggi" },
-  { kecamatan:"PULO GADUNG",      prob:0.3481, mc_median:0.3076, mc_min:0.1088, mc_max:0.5146, kategori:"Sedang" },
-  { kecamatan:"KEMBANGAN",        prob:0.3415, mc_median:0.3197, mc_min:0.0286, mc_max:0.5758, kategori:"Sedang" },
-  { kecamatan:"JOHAR BARU",       prob:0.3394, mc_median:0.3849, mc_min:0.2040, mc_max:0.5591, kategori:"Sedang" },
-  { kecamatan:"TEBET",            prob:0.3365, mc_median:0.3401, mc_min:0.2113, mc_max:0.5007, kategori:"Sedang" },
-  { kecamatan:"PALMERAH",         prob:0.3327, mc_median:0.3779, mc_min:0.2140, mc_max:0.5388, kategori:"Sedang" },
-  { kecamatan:"TAMAN SARI",       prob:0.3249, mc_median:0.3817, mc_min:0.2228, mc_max:0.5605, kategori:"Sedang" },
-  { kecamatan:"MATRAMAN",         prob:0.3211, mc_median:0.3379, mc_min:0.1713, mc_max:0.5103, kategori:"Sedang" },
-  { kecamatan:"SAWAH BESAR",      prob:0.3069, mc_median:0.3404, mc_min:0.1740, mc_max:0.5278, kategori:"Sedang" },
-  { kecamatan:"CEMPAKA PUTIH",    prob:0.3044, mc_median:0.3478, mc_min:0.1903, mc_max:0.5307, kategori:"Sedang" },
-  { kecamatan:"KEBAYORAN LAMA",   prob:0.2888, mc_median:0.2786, mc_min:0.0631, mc_max:0.4621, kategori:"Sedang" },
-  { kecamatan:"KOJA",             prob:0.2861, mc_median:0.2796, mc_min:0.0296, mc_max:0.4786, kategori:"Sedang" },
-  { kecamatan:"PASAR MINGGU",     prob:0.2784, mc_median:0.2582, mc_min:0.0431, mc_max:0.5041, kategori:"Sedang" },
-  { kecamatan:"PANCORAN",         prob:0.2675, mc_median:0.2344, mc_min:0.0331, mc_max:0.4191, kategori:"Sedang" },
-  { kecamatan:"TAMBORA",          prob:0.2662, mc_median:0.2844, mc_min:0.0471, mc_max:0.5205, kategori:"Sedang" },
-  { kecamatan:"CENGKARENG",       prob:0.2040, mc_median:0.1817, mc_min:0.0200, mc_max:0.3623, kategori:"Sedang" },
-  { kecamatan:"MAKASAR",          prob:0.1955, mc_median:0.2376, mc_min:0.0299, mc_max:0.4950, kategori:"Rendah" },
-  { kecamatan:"KRAMAT JATI",      prob:0.1752, mc_median:0.2005, mc_min:0.0497, mc_max:0.3869, kategori:"Rendah" },
-  { kecamatan:"CILINCING",        prob:0.1635, mc_median:0.2144, mc_min:0.0402, mc_max:0.4225, kategori:"Rendah" },
-  { kecamatan:"JAGAKARSA",        prob:0.1546, mc_median:0.1746, mc_min:0.0000, mc_max:0.3866, kategori:"Rendah" },
-  { kecamatan:"DUREN SAWIT",      prob:0.1339, mc_median:0.1846, mc_min:0.0195, mc_max:0.3878, kategori:"Rendah" },
-  { kecamatan:"KALI DERES",       prob:0.1293, mc_median:0.1964, mc_min:0.0196, mc_max:0.3760, kategori:"Rendah" },
-  { kecamatan:"CIRACAS",          prob:0.1129, mc_median:0.1099, mc_min:0.0088, mc_max:0.2573, kategori:"Rendah" },
-  { kecamatan:"CIPAYUNG",         prob:0.0926, mc_median:0.1121, mc_min:0.0200, mc_max:0.2551, kategori:"Rendah" },
-  { kecamatan:"PESANGGRAHAN",     prob:0.0831, mc_median:0.1075, mc_min:0.0000, mc_max:0.2807, kategori:"Rendah" },
-  { kecamatan:"PASAR REBO",       prob:0.0740, mc_median:0.1078, mc_min:0.0000, mc_max:0.2425, kategori:"Rendah" },
+  { kecamatan:"SETIA BUDI",         prob:0.6959, boot_median:0.6306, iqr:0.1549, kategori:"Sangat Tinggi" },
+  { kecamatan:"MENTENG",            prob:0.6138, boot_median:0.5743, iqr:0.1445, kategori:"Sangat Tinggi" },
+  { kecamatan:"GAMBIR",             prob:0.5582, boot_median:0.5318, iqr:0.1526, kategori:"Sangat Tinggi" },
+  { kecamatan:"KEBAYORAN BARU",     prob:0.5421, boot_median:0.5281, iqr:0.1422, kategori:"Sangat Tinggi" },
+  { kecamatan:"KELAPA GADING",      prob:0.5094, boot_median:0.4873, iqr:0.1123, kategori:"Sangat Tinggi" },
+  { kecamatan:"TANAH ABANG",        prob:0.4799, boot_median:0.4458, iqr:0.1549, kategori:"Tinggi" },
+  { kecamatan:"JATINEGARA",         prob:0.4490, boot_median:0.4042, iqr:0.1500, kategori:"Tinggi" },
+  { kecamatan:"CAKUNG",             prob:0.4443, boot_median:0.3506, iqr:0.2020, kategori:"Tinggi" },
+  { kecamatan:"PADEMANGAN",         prob:0.4377, boot_median:0.4609, iqr:0.2078, kategori:"Tinggi" },
+  { kecamatan:"TANJUNG PRIOK",      prob:0.4316, boot_median:0.3608, iqr:0.1675, kategori:"Tinggi" },
+  { kecamatan:"SENEN",              prob:0.4191, boot_median:0.4041, iqr:0.1199, kategori:"Tinggi" },
+  { kecamatan:"KEBON JERUK",        prob:0.4154, boot_median:0.3772, iqr:0.1774, kategori:"Tinggi" },
+  { kecamatan:"MAMPANG PRAPATAN",   prob:0.3999, boot_median:0.4276, iqr:0.2541, kategori:"Tinggi" },
+  { kecamatan:"GROGOL PETAMBURAN",  prob:0.3866, boot_median:0.3590, iqr:0.1274, kategori:"Tinggi" },
+  { kecamatan:"PENJARINGAN",        prob:0.3733, boot_median:0.3546, iqr:0.1792, kategori:"Tinggi" },
+  { kecamatan:"KEMAYORAN",          prob:0.3719, boot_median:0.3873, iqr:0.1460, kategori:"Tinggi" },
+  { kecamatan:"CILANDAK",           prob:0.3694, boot_median:0.3797, iqr:0.1372, kategori:"Tinggi" },
+  { kecamatan:"PULO GADUNG",        prob:0.3481, boot_median:0.2977, iqr:0.1544, kategori:"Sedang" },
+  { kecamatan:"KEMBANGAN",          prob:0.3415, boot_median:0.3553, iqr:0.1810, kategori:"Sedang" },
+  { kecamatan:"JOHAR BARU",         prob:0.3394, boot_median:0.3937, iqr:0.1409, kategori:"Sedang" },
+  { kecamatan:"TEBET",              prob:0.3365, boot_median:0.3185, iqr:0.1033, kategori:"Sedang" },
+  { kecamatan:"PALMERAH",           prob:0.3327, boot_median:0.3615, iqr:0.1331, kategori:"Sedang" },
+  { kecamatan:"TAMAN SARI",         prob:0.3249, boot_median:0.3667, iqr:0.1067, kategori:"Sedang" },
+  { kecamatan:"MATRAMAN",           prob:0.3211, boot_median:0.3186, iqr:0.0995, kategori:"Sedang" },
+  { kecamatan:"SAWAH BESAR",        prob:0.3069, boot_median:0.3321, iqr:0.1065, kategori:"Sedang" },
+  { kecamatan:"CEMPAKA PUTIH",      prob:0.3044, boot_median:0.3398, iqr:0.0961, kategori:"Sedang" },
+  { kecamatan:"KEBAYORAN LAMA",     prob:0.2888, boot_median:0.2929, iqr:0.1160, kategori:"Sedang" },
+  { kecamatan:"KOJA",               prob:0.2861, boot_median:0.2816, iqr:0.1941, kategori:"Sedang" },
+  { kecamatan:"PASAR MINGGU",       prob:0.2784, boot_median:0.2773, iqr:0.1467, kategori:"Sedang" },
+  { kecamatan:"PANCORAN",           prob:0.2675, boot_median:0.2167, iqr:0.1533, kategori:"Sedang" },
+  { kecamatan:"TAMBORA",            prob:0.2662, boot_median:0.2727, iqr:0.1910, kategori:"Sedang" },
+  { kecamatan:"CENGKARENG",         prob:0.2040, boot_median:0.1657, iqr:0.1596, kategori:"Sedang" },
+  { kecamatan:"MAKASAR",            prob:0.1955, boot_median:0.2203, iqr:0.1204, kategori:"Rendah" },
+  { kecamatan:"KRAMAT JATI",        prob:0.1752, boot_median:0.1837, iqr:0.1021, kategori:"Rendah" },
+  { kecamatan:"CILINCING",          prob:0.1635, boot_median:0.2058, iqr:0.1702, kategori:"Rendah" },
+  { kecamatan:"JAGAKARSA",          prob:0.1546, boot_median:0.1721, iqr:0.0835, kategori:"Rendah" },
+  { kecamatan:"DUREN SAWIT",        prob:0.1339, boot_median:0.1792, iqr:0.1726, kategori:"Rendah" },
+  { kecamatan:"KALI DERES",         prob:0.1293, boot_median:0.1760, iqr:0.1209, kategori:"Rendah" },
+  { kecamatan:"CIRACAS",            prob:0.1129, boot_median:0.1073, iqr:0.0770, kategori:"Rendah" },
+  { kecamatan:"CIPAYUNG",           prob:0.0926, boot_median:0.0751, iqr:0.0684, kategori:"Rendah" },
+  { kecamatan:"PESANGGRAHAN",       prob:0.0831, boot_median:0.0931, iqr:0.0706, kategori:"Rendah" },
+  { kecamatan:"PASAR REBO",         prob:0.0740, boot_median:0.0943, iqr:0.0706, kategori:"Rendah" },
 ];
 
+// Tabel 19 skripsi — feature importance Random Forest
 const FEATURE_IMPORTANCE = [
   { label:"Night-Time Light (NTL)",    pct:28.15, top:true  },
   { label:"Land Surface Temp (LST)",   pct:13.61, top:true  },
@@ -69,6 +88,31 @@ const FEATURE_IMPORTANCE = [
   { label:"Lokasi Kumuh",              pct:2.00,  top:false },
 ];
 
+// Tabel 18 skripsi — perbandingan performa Random Forest vs GBM
+// (evaluasi nested CV: outer LOOCV 42 iterasi, inner Stratified 5-Fold)
+//
+// CATATAN F1-Score Random Forest: Tabel 18 skripsi menulis 0,721, tetapi dari
+// Precision 0,636 dan Recall 1,000 hasil hitungnya 0,778 (0,721 adalah nilai
+// Cohen's Kappa). Web story memakai 0,778. Jika ingin persis sama dengan
+// tabel skripsi, ubah angka `rf` pada baris F1 di bawah — tabel, radar chart,
+// dan teks lain akan ikut berubah.
+const MODEL_METRICS = [
+  { label:"AUC",                  short:"AUC",           rf:0.951, gbm:0.835 },
+  { label:"Balanced Accuracy",    short:"Bal. Accuracy", rf:0.943, gbm:0.829 },
+  { label:"Accuracy",             short:"Accuracy",      rf:0.905, gbm:0.905 },
+  { label:"F1-Score",             short:"F1-Score",      rf:0.778, gbm:0.714 },
+  { label:"Recall (Sensitivity)", short:"Recall",        rf:1.000, gbm:0.714 },
+  { label:"Precision",            short:"Precision",     rf:0.636, gbm:0.714 },
+];
+
+// Tabel 22 skripsi — kasus penggusuran (LBH Jakarta 2016–2018) per kategori prediksi
+const VALIDATION_DATA = [
+  { kategori:"Rendah",        range:"0–20%",  kasus:22, kk:517  },
+  { kategori:"Sedang",        range:"20–35%", kasus:37, kk:1310 },
+  { kategori:"Tinggi",        range:"35–50%", kasus:40, kk:4022 },
+  { kategori:"Sangat Tinggi", range:">50%",   kasus:17, kk:223  },
+];
+
 const RISK_COLORS = {
   "Sangat Tinggi": "#ff2020",
   "Tinggi":        "#ff6820",
@@ -76,12 +120,15 @@ const RISK_COLORS = {
   "Rendah":        "#2090ff",
 };
 
+// 13 variabel prediktor (kondisi 2014) — urutan mengikuti feature importance;
+// `top` = empat kontributor terbesar
 const VAR_PILLS = [
-  { label:"NTL",               top:true  },
-  { label:"LST",               top:true  },
-  { label:"SKTM",              top:true  },
-  { label:"Kepadatan Penduduk",top:true  },
-  { label:"NDBI",              top:false },
+  { label:"NTL",                   top:true  },
+  { label:"LST",                   top:true  },
+  { label:"Kemiskinan (SKTM)",     top:true  },
+  { label:"Kepadatan Penduduk",    top:true  },
+  { label:"Bangunan Kumuh",        top:false },
+  { label:"NDBI",                  top:false },
   { label:"Densitas Transportasi", top:false },
   { label:"Densitas Pendidikan",   top:false },
   { label:"Densitas Komersial",    top:false },
@@ -89,48 +136,23 @@ const VAR_PILLS = [
   { label:"Hunian Vertikal",       top:false },
   { label:"NDVI",                  top:false },
   { label:"Lokasi Kumuh",          top:false },
-  { label:"Bangunan Kumuh",        top:false },
-];
-
-const TIMELINE_DATA = [
-  {
-    title: "Jakarta dirancang hanya untuk 300 ribu jiwa",
-    body:  "Pemerintah kolonial Belanda merancang Batavia untuk ~300 ribu jiwa. Urbanisasi pasca kemerdekaan mengubah segalanya — kota meledak di luar kendali. Tekanan ruang yang dirasakan hari ini berakar dari miskonfigurasi kapasitas historis ini. Pada 1970, Jakarta sudah dihuni 4,7 juta jiwa — 15× kapasitas desain."
-  },
-  {
-    title: "Boom hunian vertikal pertama",
-    body:  "Dekade 1990-an menandai era pertama pembangunan apartemen dan kondominium premium di Jakarta, terutama di kawasan Sudirman dan Kuningan. Krisis moneter 1997-98 sempat menghentikan momentum, namun fondasi pola new-build gentrification sudah tertanam."
-  },
-  {
-    title: "Era pembangunan masif: 119 gedung baru",
-    body:  "Dekade 2010-an mencatat 119 hunian vertikal baru — pertumbuhan terbesar dalam sejarah Jakarta. Koridor Thamrin, Gatot Subroto, Kemang, dan Kelapa Gading menjadi pusat konsentrasi. Nilai NJOP melonjak tajam. Tekanan displacement mulai terasa di lapangan."
-  },
-  {
-    title: "MRT Jakarta beroperasi — aksesibilitas berubah total",
-    body:  "Operasional MRT (2019) dan perluasan LRT & BRT mengubah peta aksesibilitas Jakarta secara fundamental. Teori rent gap Smith (1979) bekerja nyata: kawasan dekat stasiun mengalami kenaikan nilai lahan tajam, memicu gelombang baru reinvestasi dan displacement yang terakselerasi."
-  },
-  {
-    title: "2024: Titik kritis — 395.298 jiwa meninggalkan Jakarta",
-    body:  "Data Disdukcapil DKI 2024 mencatat arus keluar 395.298 jiwa vs. 84.783 jiwa masuk (rasio 4,66×). Pola demografis: keluarga pergi, lajang muda datang. Ini bukan sekadar migrasi — ini displacement terstruktur yang kini dapat diprediksi dan dipetakan dengan machine learning."
-  },
 ];
 
 const EASTER_EGGS = {
-  "auc":          { title:"AUC Score 95.1%", body:"Area Under the ROC Curve: ukuran kemampuan model membedakan kecamatan berisiko vs tidak. Nilai 0.951 berarti model benar 95.1% dari semua perbandingan pasangan data. Ini sangat tinggi — memvalidasi bahwa Random Forest layak jadi instrumen prediksi kebijakan." },
-  "kec":          { title:"42 Kecamatan", body:"DKI Jakarta memiliki 44 kecamatan, namun 2 kecamatan di Kepulauan Seribu dikeluarkan karena karakteristik yang sangat berbeda (pulau, bukan daratan urban). Analisis berfokus pada 42 kecamatan daratan untuk konsistensi." },
-  "mc":           { title:"Monte Carlo 200×", body:"Karena data hanya 42 observasi, satu pembagian train/test bisa sangat bias. Monte Carlo 200× menjalankan 200 percobaan dengan pembagian acak berbeda, lalu mengambil median sebagai estimasi yang lebih robust dan mengukur ketidakpastian lewat rentang min–max." },
-  "exit":         { title:"395.298 Jiwa Keluar", body:"Angka ini dari Disdukcapil DKI Jakarta 2024. Yang keluar didominasi keluarga dengan anak (usia 0–14) dan lansia (>60). Yang masuk didominasi usia 25–29 tahun, lajang, berpendidikan tinggi. Pola demografis ini adalah tanda klasik displacement akibat gentrifikasi." },
-  "rentgap":      { title:"Teori Rent Gap (Smith, 1979)", body:"Neil Smith, seorang geograf Marxis, mengembangkan teori ini untuk menjelaskan mengapa investor menarget kawasan tertentu. 'Rent gap' = selisih antara nilai sewa aktual lahan vs nilai potensialnya jika dikembangkan ulang. Semakin lebar celah ini, semakin menarik bagi kapital untuk masuk." },
-  "displacement": { title:"Displacement Terstruktur", body:"Displacement bisa langsung (penggusuran paksa) atau tidak langsung (kenaikan biaya sewa/hidup yang memaksa keluar secara 'sukarela'). Di Jakarta, yang dominan adalah displacement tidak langsung — sehingga sulit terdeteksi, namun skalanya masif sebagaimana data migrasi 2024 tunjukkan." },
-  "newbuild":     { title:"Davidson & Lees (2005)", body:"Mark Davidson dan Loretta Lees mendokumentasikan new-build gentrification di London riverside — apartemen mewah baru yang bukan 'merehabilitasi' hunian lama, melainkan membangun dari nol di lahan yang sebelumnya ditempati warga berpendapatan rendah. Pola inilah yang relevan untuk Jakarta." },
-  "auc-detail":   { title:"AUC: Mengapa Penting?", body:"Model dengan AUC tinggi bisa membedakan 'kecamatan akan tergentrifikasi' vs 'tidak' dengan akurasi tinggi. Ini krusial untuk kebijakan: salah identifikasi berarti sumber daya perlindungan dialokasikan ke tempat yang salah. AUC 0.951 memberi kepercayaan tinggi pada peta risiko yang dihasilkan." },
-  "f1-detail":    { title:"F1-Score 0.778", body:"F1 adalah rata-rata harmonik precision dan recall. Untuk problem ini, recall (sensitivity) lebih penting — kita tidak boleh melewatkan kecamatan berisiko. Model RF mencapai recall sempurna (1.0), artinya SEMUA kecamatan yang sebenarnya berisiko terdeteksi." },
-  "ba-detail":    { title:"Balanced Accuracy 94.3%", body:"Karena data imbalanced (hanya 12 dari 42 kecamatan positif), accuracy biasa bisa menyesatkan. Balanced accuracy mengambil rata-rata sensitivity dan specificity — ukuran yang jauh lebih adil untuk dataset kecil dengan distribusi kelas tidak seimbang." },
-  "kappa-detail": { title:"Cohen's Kappa 0.778", body:"Kappa mengukur seberapa jauh prediksi model lebih baik dari sekadar tebakan acak. Nilai 0.778 (kategori 'substantial agreement') berarti model memberikan informasi yang jauh melampaui random — sangat signifikan untuk pengambilan keputusan kebijakan." },
-  "finding-sangat": { title:"5 Kecamatan Paling Rentan", body:"Setia Budi (69.6%), Menteng (61.4%), Gambir (55.8%), Kebayoran Baru (54.2%), Kelapa Gading (50.9%). Semua berada di koridor bisnis dan investasi utama Jakarta. Di sini, intervensi seperti rent control, social housing, dan community land trust paling mendesak diimplementasikan." },
-  "finding-tinggi": { title:"12 Kecamatan Risiko Tinggi", body:"Kawasan-kawasan ini berada dalam bayangan investasi — tekanan sudah mulai dirasakan tapi belum puncak. Ini adalah 'window of opportunity' untuk kebijakan preventif: perlindungan penyewa, batas kenaikan harga tanah, dan program hunian campuran (mixed-income housing)." },
-  "finding-sedang": { title:"15 Kecamatan Risiko Sedang", body:"Perubahan berjalan lambat namun pasti. Kawasan ini membutuhkan monitoring aktif — terutama karena ekspansi jaringan transportasi bisa mengakselerasi tekanan secara tiba-tiba. Cengkareng (20.4%) adalah kasus paling menarik: berada tepat di ambang batas kategori." },
-  "finding-rendah": { title:"10 Kecamatan Risiko Rendah", body:"'Rendah' bukan 'aman selamanya'. Pesanggrahan, Pasar Rebo, dan Cipayung saat ini terlindungi oleh kurangnya infrastruktur premium dan konektivitas. Namun rencana MRT East-West dan LRT Jabodebek bisa mengubah kalkulasi ini dalam 5–10 tahun ke depan." },
+  "auc":          { title:"AUC 0,951", body:"AUC (Area Under the ROC Curve) mengukur kemampuan model membedakan kecamatan Gentrifying dari Not Gentrifying di semua ambang probabilitas. Nilai 0,951 berarti, bila satu kecamatan Gentrifying dan satu Not Gentrifying dipilih acak, model memberi skor lebih tinggi pada yang Gentrifying dalam sekitar 95,1% pasangan. Random Forest jauh mengungguli GBM yang hanya 0,835." },
+  "kec":          { title:"42 Kecamatan", body:"DKI Jakarta memiliki 44 kecamatan. Dua kecamatan di Kabupaten Kepulauan Seribu dikeluarkan karena letaknya terpisah oleh laut sehingga minim interaksi dengan dinamika perkotaan di bagian Jakarta yang lain. Analisis berfokus pada 42 kecamatan di lima kota administrasi." },
+  "bootstrap":    { title:"Bootstrap 50×", body:"Algoritma tree-based mengandung unsur acak, dan datanya hanya 42 kecamatan. Bootstrap resampling 50 iterasi menghasilkan 50 probabilitas untuk tiap kecamatan. Median dipakai sebagai estimasi yang robust terhadap pencilan, sedangkan IQR menunjukkan ketidakpastian: makin lebar, makin sensitif prediksi terhadap komposisi data latih." },
+  "exit":         { title:"395.298 Jiwa Keluar", body:"Data Disdukcapil DKI Jakarta 2024: 395.298 jiwa berpindah keluar dan 84.783 jiwa datang. Yang keluar didominasi unit keluarga berusia 40–44 tahun dan anak usia 5–14 tahun, terutama menuju Bogor (56.444 jiwa) dan Depok (45.523 jiwa). Yang datang didominasi usia 20–29 tahun, mayoritas karyawan swasta dan mahasiswa. Pola ini menjadi sinyal kuat terjadinya displacement." },
+  "rentgap":      { title:"Teori Rent Gap (Smith, 1979)", body:"Rent gap adalah selisih antara nilai ekonomi lahan saat ini (capitalized ground rent) dan nilai maksimal bila lahan dikembangkan secara optimal (potential ground rent). Bangunan yang menua atau tak dirawat menekan nilai aktual, sementara perluasan transportasi publik dan kedekatan dengan pusat komersial mendorong nilai potensial. Semakin lebar celahnya, semakin menarik bagi modal untuk masuk." },
+  "displacement": { title:"Displacement", body:"Marcuse (1985) membedakan empat bentuk displacement: direct last-resident, direct chain, exclusionary displacement, dan displacement pressure. Pada new-build gentrification, dua yang terakhir paling relevan: pembangunan baru jarang mengusir warga secara langsung, tetapi mengerek harga properti dan biaya hidup di sekitarnya sehingga keluarga rentan terdesak pindah." },
+  "newbuild":     { title:"Davidson & Lees (2005)", body:"Berbeda dengan gentrifikasi klasik yang berfokus pada perbaikan hunian lama, new-build gentrification digerakkan oleh konstruksi masif hunian vertikal dan area komersial eksklusif di atas lahan kosong atau lahan yang kurang termanfaatkan. Meski tidak selalu menggusur penghuni di tapak yang sama, kehadirannya memicu rambatan kenaikan harga lahan di permukiman sekitar." },
+  "auc-detail":   { title:"AUC: Mengapa Penting?", body:"AUC tidak bergantung pada satu ambang probabilitas, sehingga lebih tahan terhadap data tidak seimbang seperti 7 kecamatan Gentrifying dari 42. Random Forest memperoleh 0,951 dan GBM 0,835." },
+  "f1-detail":    { title:"F1-Score", body:"F1 adalah rata-rata harmonik Precision dan Recall. Random Forest mencapai Recall 1,000: seluruh 7 kecamatan Gentrifying terdeteksi. Konsekuensinya Precision 0,636, artinya sebagian kecamatan yang diprediksi Gentrifying sebenarnya bukan. GBM memiliki Precision dan Recall yang sama, yaitu 0,714." },
+  "ba-detail":    { title:"Balanced Accuracy 0,943", body:"Karena data tidak seimbang (hanya 7 dari 42 kecamatan berlabel Gentrifying), accuracy biasa dapat menyesatkan: kedua model sama-sama 0,905. Balanced Accuracy merata-ratakan Recall dan Specificity sehingga lebih adil, dan di sini Random Forest (0,943) jauh di atas GBM (0,829)." },
+  "finding-sangat": { title:"5 Kecamatan Sangat Tinggi", body:"Setia Budi (69,6%), Menteng (61,4%), Gambir (55,8%), Kebayoran Baru (54,2%), dan Kelapa Gading (50,9%). Kelimanya masuk Klaster 1 (Gentrifikasi Tinggi) pada tahap K-Means dan berada di pusat aktivitas bisnis, pemerintahan, serta kawasan hunian-komersial premium." },
+  "finding-tinggi": { title:"12 Kecamatan Tinggi", body:"Probabilitas 35–50%. Kecamatan ini, termasuk Tanah Abang (48,0%) dan Senen (41,9%), membentuk zona transisi di sekitar inti. Pada validasi, kategori ini memuat 40 kasus penggusuran dan 4.022 KK terdampak, porsi KK terbesar di antara semua kategori." },
+  "finding-sedang": { title:"15 Kecamatan Sedang", body:"Probabilitas 20–35%: sebagian karakteristik kecamatan mengindikasikan probabilitas new-build gentrification. Cengkareng (20,4%) berada tepat di ambang batas kategori. Pada validasi, kategori ini memuat 37 kasus penggusuran dan 1.310 KK terdampak." },
+  "finding-rendah": { title:"10 Kecamatan Rendah", body:"Probabilitas di bawah 20%, terutama di pinggiran selatan, tenggara, barat, dan timur laut Jakarta. Karakteristiknya belum mengarah pada pola new-build gentrification, sehingga lebih terlindungi dalam jangka pendek. Ini adalah pembacaan kondisi 2024, bukan ramalan jangka panjang." },
 };
 
 // ─────────────────────────────────────────────
@@ -347,7 +369,7 @@ function initNav() {
     // active link
     let current = "";
     sections.forEach(s => {
-      if (y >= s.offsetTop - 100) current = s.id;
+      if (y >= s.offsetTop - 100) current = s.dataset.nav || s.id;
     });
     document.querySelectorAll(".nav-links a").forEach(a => {
       const href = a.getAttribute("href").slice(1);
@@ -523,32 +545,6 @@ function initEasterEggs() {
 }
 
 // ─────────────────────────────────────────────
-// TIMELINE
-// ─────────────────────────────────────────────
-function initTimeline() {
-  const nodes  = document.querySelectorAll(".tl-node");
-  const title  = document.getElementById("tl-title");
-  const body   = document.getElementById("tl-body");
-  const detail = document.getElementById("tl-detail");
-  if (!nodes.length || !title) return;
-
-  function activate(idx) {
-    nodes.forEach(n => n.classList.toggle("active", parseInt(n.dataset.tl) === idx));
-    detail.style.opacity = "0";
-    detail.style.transform = "translateY(10px)";
-    setTimeout(() => {
-      title.textContent = TIMELINE_DATA[idx].title;
-      body.textContent  = TIMELINE_DATA[idx].body;
-      detail.style.opacity = "1";
-      detail.style.transform = "none";
-      detail.style.transition = "opacity 0.35s, transform 0.35s";
-    }, 180);
-  }
-
-  nodes.forEach(n => n.addEventListener("click", () => activate(parseInt(n.dataset.tl))));
-}
-
-// ─────────────────────────────────────────────
 // VAR PILLS
 // ─────────────────────────────────────────────
 function initVarPills() {
@@ -599,6 +595,58 @@ function initFeatureImportance() {
 }
 
 // ─────────────────────────────────────────────
+// TABEL PERBANDINGAN MODEL (Tabel 18)
+// ─────────────────────────────────────────────
+function initModelTable() {
+  const tbody = document.getElementById("model-table-body");
+  if (!tbody) return;
+  tbody.innerHTML = MODEL_METRICS.map(m => {
+    const tie = m.rf === m.gbm;
+    const rfCls  = m.rf  > m.gbm ? "metric-win" : "";
+    const gbmCls = m.gbm > m.rf  ? "metric-win" : "";
+    const note = tie ? ' <span class="metric-note">seri</span>' : "";
+    return `<tr>
+      <td>${m.label}</td>
+      <td class="${rfCls}">${fmt(m.rf, 3)}${note}</td>
+      <td class="${gbmCls}">${fmt(m.gbm, 3)}${note}</td>
+    </tr>`;
+  }).join("");
+}
+
+// ─────────────────────────────────────────────
+// KESTABILAN PREDIKSI (bootstrap: IQR terkecil vs terbesar)
+// ─────────────────────────────────────────────
+function initStability() {
+  const low  = document.getElementById("stab-low");
+  const high = document.getElementById("stab-high");
+  if (!low || !high) return;
+  const row = d => `<li>
+      <span class="stab-name">${d.kecamatan}</span>
+      <span class="stab-val">IQR ${fmt(d.iqr, 3)}<small>median ${fmtPct(d.boot_median)}</small></span>
+    </li>`;
+  low.innerHTML  = [...PREDICTION_DATA].sort((a,b)=>a.iqr-b.iqr).slice(0,4).map(row).join("");
+  high.innerHTML = [...PREDICTION_DATA].sort((a,b)=>b.iqr-a.iqr).slice(0,4).map(row).join("");
+}
+
+// ─────────────────────────────────────────────
+// TABEL VALIDASI PENGGUSURAN (Tabel 22)
+// ─────────────────────────────────────────────
+function initValidationTable() {
+  const tbody = document.getElementById("val-table-body");
+  if (!tbody) return;
+  const totKasus = VALIDATION_DATA.reduce((a,d)=>a+d.kasus, 0);
+  const totKK    = VALIDATION_DATA.reduce((a,d)=>a+d.kk, 0);
+  const rows = VALIDATION_DATA.map(d => `<tr>
+      <td><span class="val-dot" style="background:${RISK_COLORS[d.kategori]}"></span>${d.kategori}<small>${d.range}</small></td>
+      <td>${d.kasus}<small>${fmt(d.kasus/totKasus*100, 1)}%</small></td>
+      <td>${d.kk.toLocaleString("id-ID")}<small>${fmt(d.kk/totKK*100, 1)}%</small></td>
+    </tr>`).join("");
+  tbody.innerHTML = rows + `<tr class="val-total">
+      <td>Total</td><td>${totKasus}<small>100%</small></td><td>${totKK.toLocaleString("id-ID")}<small>100%</small></td>
+    </tr>`;
+}
+
+// ─────────────────────────────────────────────
 // LEAFLET MAP
 // ─────────────────────────────────────────────
 function initMap() {
@@ -632,7 +680,7 @@ function initMap() {
   const probFill    = document.getElementById("kec-prob-fill");
   const probPct     = document.getElementById("kec-prob-pct");
   const kecKat      = document.getElementById("kec-kategori");
-  const kecMC       = document.getElementById("kec-mc-range");
+  const kecBoot     = document.getElementById("kec-boot");
 
   function styleFeature(f) {
     const d = lookup[(f.properties.nama_kec||f.properties.KECAMATAN||"").toUpperCase().trim()];
@@ -653,16 +701,15 @@ function initMap() {
     infoDefault.style.display = "none";
     infoData.style.display    = "block";
     kecName.textContent       = d.kecamatan;
-    const p = (d.prob * 100).toFixed(1);
-    probFill.style.width      = p + "%";
+    probFill.style.width      = (d.prob * 100).toFixed(1) + "%";
     probFill.style.background = RISK_COLORS[d.kategori];
-    probPct.textContent       = p + "%";
+    probPct.textContent       = fmtPct(d.prob);
     probPct.style.color       = RISK_COLORS[d.kategori];
-    kecKat.textContent        = "Risiko " + d.kategori;
+    kecKat.textContent        = "Probabilitas " + d.kategori;
     kecKat.style.color        = RISK_COLORS[d.kategori];
     kecKat.style.border       = "1px solid " + RISK_COLORS[d.kategori] + "55";
     kecKat.style.background   = RISK_COLORS[d.kategori] + "22";
-    kecMC.innerHTML = `MC Median: <strong>${(d.mc_median*100).toFixed(1)}%</strong><br/>Range: ${(d.mc_min*100).toFixed(1)}% – ${(d.mc_max*100).toFixed(1)}%`;
+    if (kecBoot) kecBoot.innerHTML = `Median bootstrap (50×): <strong>${fmtPct(d.boot_median)}</strong><br/>IQR: ${fmt(d.iqr, 3)}`;
   }
 
   function onOut(e) {
@@ -682,7 +729,7 @@ function initMap() {
             const d = lookup[(feat.properties.nama_kec||feat.properties.KECAMATAN||"").toUpperCase().trim()];
             if (d) {
               layer.bindTooltip(
-                `<strong style="color:${RISK_COLORS[d.kategori]}">${d.kecamatan}</strong><br/>${(d.prob*100).toFixed(1)}% — ${d.kategori}`,
+                `<strong style="color:${RISK_COLORS[d.kategori]}">${d.kecamatan}</strong><br/>${fmtPct(d.prob)} — ${d.kategori}`,
                 { sticky:true, direction:"top" }
               );
             }
@@ -782,7 +829,7 @@ function initRanking() {
     if (!list) return;
     items.sort((a,b)=>b.prob-a.prob).forEach((d,i)=>{
       const color = RISK_COLORS[d.kategori];
-      const barW  = (d.prob * 100).toFixed(1);
+      const barW  = (d.prob * 100).toFixed(1);   // untuk lebar bar (titik desimal)
       const item  = document.createElement("div");
       item.className = "rank-item";
       item.innerHTML = `
@@ -790,11 +837,11 @@ function initRanking() {
         <div>
           <div class="rank-kec">${d.kecamatan}</div>
           <div style="font-family:var(--mono);font-size:0.6rem;color:var(--fog);margin-top:0.2rem">
-            MC ${(d.mc_min*100).toFixed(0)}% – ${(d.mc_max*100).toFixed(0)}%
+            Median bootstrap ${fmtPct(d.boot_median, 1)} · IQR ${fmt(d.iqr, 3)}
           </div>
         </div>
         <div class="rank-bar"><div class="rank-fill" data-w="${barW}" style="width:0%;background:${color}"></div></div>
-        <div class="rank-pct" style="color:${color}">${barW}%</div>
+        <div class="rank-pct" style="color:${color}">${fmtPct(d.prob)}</div>
       `;
       item.addEventListener("click", e => {
         spawnRipple(e.clientX, e.clientY);
@@ -833,7 +880,7 @@ function initRanking() {
       }
     });
   }, { threshold: 0.2 });
-  const rankSec = document.getElementById("ranking");
+  const rankSec = document.getElementById("panel-sangat");
   if (rankSec) io.observe(rankSec);
 }
 
@@ -917,25 +964,28 @@ function initCharts() {
     });
   }
 
-  // ── Radar
+  // ── Radar: Random Forest vs GBM (Tabel 18)
   const rCtx = document.getElementById("chart-radar")?.getContext("2d");
   if (rCtx) {
     new Chart(rCtx, {
       type:"radar",
       data:{
-        labels:["AUC","F1-Score","Bal.Accuracy","Precision","Recall","Kappa"],
+        labels: MODEL_METRICS.map(m => m.short),
         datasets:[
-          { label:"Random Forest", data:[0.951,0.778,0.943,0.636,1.0,0.721],
+          { label:"Random Forest", data: MODEL_METRICS.map(m => m.rf),
             borderColor:"#00d4aa", backgroundColor:"rgba(0,212,170,0.12)", borderWidth:2, pointBackgroundColor:"#00d4aa", pointRadius:4 },
-          { label:"Decision Tree", data:[0.796,0.667,0.841,0.625,0.714,0.595],
+          { label:"Gradient Boosting (GBM)", data: MODEL_METRICS.map(m => m.gbm),
             borderColor:"#ffb800", backgroundColor:"rgba(255,184,0,0.08)", borderWidth:2, pointBackgroundColor:"#ffb800", pointRadius:4 },
         ],
       },
       options:{
         responsive:true,
-        plugins:{ legend:{ position:"bottom", labels:{ padding:14, font:{size:11}, color:"rgba(200,192,176,0.7)" }} },
+        plugins:{
+          legend:{ position:"bottom", labels:{ padding:14, font:{size:11}, color:"rgba(200,192,176,0.7)" }},
+          tooltip:{ callbacks:{ label:ctx => ` ${ctx.dataset.label}: ${fmt(ctx.raw, 3)}` } },
+        },
         scales:{ r:{
-          min:0.4, max:1.0, ticks:{ stepSize:0.1, font:{size:9}, backdropColor:"transparent", color:"rgba(200,192,176,0.5)" },
+          min:0.5, max:1.0, ticks:{ stepSize:0.1, font:{size:9}, backdropColor:"transparent", color:"rgba(200,192,176,0.5)" },
           grid:{color:"rgba(255,255,255,0.07)"}, angleLines:{color:"rgba(255,255,255,0.07)"},
           pointLabels:{font:{size:10}, color:"rgba(200,192,176,0.8)"},
         }},
@@ -943,32 +993,87 @@ function initCharts() {
     });
   }
 
-  // ── Scatter
+  // ── Scatter: probabilitas prediksi vs median bootstrap
   const sCtx = document.getElementById("chart-scatter")?.getContext("2d");
   if (sCtx) {
     const sorted = [...PREDICTION_DATA].sort((a,b)=>a.prob-b.prob);
     new Chart(sCtx, {
       type:"scatter",
       data:{
-        datasets:[{
-          data: sorted.map((d,i)=>({ x:+(d.prob*100).toFixed(2), y:i+1, label:d.kecamatan, cat:d.kategori })),
-          backgroundColor: sorted.map(d=>RISK_COLORS[d.kategori]+"bb"),
-          borderColor: sorted.map(d=>RISK_COLORS[d.kategori]),
-          borderWidth:1, pointRadius:6, pointHoverRadius:10,
-        }],
+        datasets:[
+          {
+            label:"Probabilitas prediksi (warna = kategori)",
+            data: sorted.map((d,i)=>({ x:+(d.prob*100).toFixed(2), y:i+1, label:d.kecamatan, cat:d.kategori })),
+            backgroundColor: sorted.map(d=>RISK_COLORS[d.kategori]+"bb"),
+            borderColor: sorted.map(d=>RISK_COLORS[d.kategori]),
+            borderWidth:1, pointRadius:6, pointHoverRadius:10,
+          },
+          {
+            label:"Median bootstrap (50 iterasi)",
+            data: sorted.map((d,i)=>({ x:+(d.boot_median*100).toFixed(2), y:i+1, label:d.kecamatan, cat:d.kategori })),
+            backgroundColor:"rgba(240,234,216,0.0)",
+            borderColor:"rgba(240,234,216,0.75)",
+            borderWidth:1.5, pointStyle:"rectRot", pointRadius:4, pointHoverRadius:8,
+          },
+        ],
       },
       options:{
         responsive:true,
         plugins:{
-          legend:{display:false},
-          tooltip:{callbacks:{label:ctx=>`${ctx.raw.label}: ${ctx.raw.x.toFixed(1)}% — ${ctx.raw.cat}`}},
+          legend:{
+            position:"bottom",
+            labels:{
+              padding:12, font:{size:10}, color:"rgba(200,192,176,0.7)", usePointStyle:true,
+              generateLabels: () => [
+                { text:"Probabilitas prediksi (warna = kategori)", fillStyle:"#ff6820", strokeStyle:"#ff6820", pointStyle:"circle", datasetIndex:0 },
+                { text:"Median bootstrap (50×)", fillStyle:"transparent", strokeStyle:"rgba(240,234,216,0.75)", lineWidth:1.5, pointStyle:"rectRot", datasetIndex:1 },
+              ],
+            },
+            onClick: () => {},
+          },
+          tooltip:{callbacks:{label:ctx=>`${ctx.raw.label}: ${fmt(ctx.raw.x, 1)}% — ${ctx.dataset.label.startsWith("Median") ? "median bootstrap" : ctx.raw.cat}`}},
         },
         scales:{
-          x:{ title:{display:true, text:"Probabilitas Gentrifikasi (%)", color:"rgba(200,192,176,0.6)"},
+          x:{ title:{display:true, text:"Probabilitas New-Build Gentrification (%)", color:"rgba(200,192,176,0.6)"},
               grid:{color:"rgba(255,255,255,0.05)"}, ticks:{callback:v=>v+"%", color:"rgba(200,192,176,0.6)"} },
-          y:{ title:{display:true, text:"Ranking Kecamatan", color:"rgba(200,192,176,0.6)"},
+          y:{ title:{display:true, text:"Ranking Kecamatan (1 = terendah)", color:"rgba(200,192,176,0.6)"},
               grid:{color:"rgba(255,255,255,0.04)"}, ticks:{color:"rgba(200,192,176,0.6)"} },
         },
+      },
+    });
+  }
+
+  // ── Validasi: kasus penggusuran & KK terdampak per kategori (Tabel 22)
+  const vCtx = document.getElementById("chart-validasi")?.getContext("2d");
+  if (vCtx) {
+    const totKasus = VALIDATION_DATA.reduce((a,d)=>a+d.kasus, 0);
+    const totKK    = VALIDATION_DATA.reduce((a,d)=>a+d.kk, 0);
+    new Chart(vCtx, {
+      type:"bar",
+      data:{
+        labels: VALIDATION_DATA.map(d=>d.kategori),
+        datasets:[
+          { label:"% kasus penggusuran", data: VALIDATION_DATA.map(d=>d.kasus/totKasus*100),
+            backgroundColor:"rgba(0,212,170,0.55)", borderColor:"#00d4aa", borderWidth:1, borderRadius:2 },
+          { label:"% KK terdampak", data: VALIDATION_DATA.map(d=>d.kk/totKK*100),
+            backgroundColor:"rgba(255,184,0,0.55)", borderColor:"#ffb800", borderWidth:1, borderRadius:2 },
+        ],
+      },
+      options:{
+        responsive:true,
+        plugins:{
+          legend:{ position:"bottom", labels:{ padding:14, font:{size:11}, color:"rgba(200,192,176,0.7)", usePointStyle:true } },
+          tooltip:{ callbacks:{ label: ctx => {
+            const d = VALIDATION_DATA[ctx.dataIndex];
+            const n = ctx.datasetIndex === 0 ? `${d.kasus} kasus` : `${d.kk.toLocaleString("id-ID")} KK`;
+            return ` ${fmt(ctx.raw, 1)}% (${n})`;
+          } } },
+        },
+        scales:{
+          x:{ grid:{display:false}, ticks:{color:"rgba(200,192,176,0.8)", font:{size:10}} },
+          y:{ beginAtZero:true, max:80, grid:{color:"rgba(255,255,255,0.05)"}, ticks:{callback:v=>v+"%", color:"rgba(200,192,176,0.6)"} },
+        },
+        animation:{ duration:1200 },
       },
     });
   }
@@ -1012,9 +1117,11 @@ document.addEventListener("DOMContentLoaded", () => {
   initReveal();
   initCountUp();
   initEasterEggs();
-  initTimeline();
   initVarPills();
+  initModelTable();
   initFeatureImportance();
+  initStability();
+  initValidationTable();
   initRanking();
   initFindingCards();
   initCardSpotlights();
