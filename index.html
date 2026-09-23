@@ -43,18 +43,12 @@
       </div>
 
       <ul class="nav-links">
-        <li>
-          <a href="#definisi" data-text="Latar Belakang">Latar Belakang</a>
-        </li>
+        <li><a href="#definisi" data-text="Latar Belakang">Latar Belakang</a></li>
         <li><a href="#metodologi" data-text="Metodologi">Metodologi</a></li>
-        <li><a href="#pelabelan" data-text="Hasil">
+        <li><a href="#pelabelan" data-text="hasil">Hasil</a></li>
         <li><a href="#peta-section" data-text="Pemetaan">Pemetaan</a></li>
         <li><a href="#validasi" data-text="Validasi">Validasi</a></li>
-        <li>
-          <a href="#visualisasi" data-text="Visualisasi Data"
-            >Visualisasi Data</a
-          >
-        </li>
+        <li><a href="#visualisasi" data-text="Visualisasi Data">Visualisasi Data</a></li>
         <li><a href="#interpretasi" data-text="Kesimpulan">Kesimpulan</a></li>
       </ul>
 
@@ -421,14 +415,14 @@
                 kesehatan, dan NJOP, distandardisasi dengan z-score dan lolos
                 uji multikolinearitas (VIF 1,16–3,52).
                 <em>Elbow Method</em> untuk K = 2 hingga 8 menunjuk k = 3:
-                Klaster 0 Stabil (14 kecamatan), Klaster 1 Intensif
-                (7), dan Klaster 2 Transisi (21). Uji
-                <em>K-Color Join Count</em> (<em>Queen contiguity</em>, 10.000
-                permutasi Monte Carlo) menunjukkan ketiga klaster mengelompok
-                secara spasial (p &lt; 0,05). Klaster 1 kemudian ditetapkan
-                sebagai kelas <em>Gentrifying</em> (7 kecamatan), sedangkan
-                Klaster 0 dan 2 digabung sebagai <em>Not Gentrifying</em> (35
-                kecamatan).
+                Klaster 0 Stabil (14 kecamatan), Klaster 1 Intensif (7), dan
+                Klaster 2 Transisi (21). Uji <em>K-Color Join Count</em> (<em
+                  >Queen contiguity</em
+                >, 10.000 permutasi Monte Carlo) menunjukkan ketiga klaster
+                mengelompok secara spasial (p &lt; 0,05). Klaster 1 kemudian
+                ditetapkan sebagai kelas <em>Gentrifying</em> (7 kecamatan),
+                sedangkan Klaster 0 dan 2 digabung sebagai
+                <em>Not Gentrifying</em> (35 kecamatan).
               </p>
               <div class="chip-row">
                 <span class="chip">K-Means</span>
@@ -521,9 +515,7 @@
         </div>
 
         <div class="var-block" data-reveal>
-          <h4 class="var-block-title">
-            13 variabel prediktor
-          </h4>
+          <h4 class="var-block-title">13 variabel prediktor</h4>
           <div class="var-pills" id="var-pills-container"></div>
         </div>
       </div>
@@ -625,7 +617,7 @@
       </div>
     </section>
 
-        <!-- ══════════════════════════════════════
+    <!-- ══════════════════════════════════════
      PELABELAN WILAYAH (K-MEANS)
      ══════════════════════════════════════ -->
     <section class="section-wrap" id="pelabelan" data-section="Pelabelan">
@@ -693,7 +685,12 @@
     <!-- ══════════════════════════════════════
      HASIL MODEL
      ══════════════════════════════════════ -->
-    <section class="section-wrap" id="hasil-model" data-section="Hasil Model" data-nav="pelabelan">
+    <section
+      class="section-wrap"
+      id="hasil-model"
+      data-section="Hasil Model"
+      data-nav="pelabelan"
+    >
       <div class="inner" style="position: relative; z-index: 1">
         <p class="eyebrow" data-reveal>04 — Performa Model</p>
         <h2 class="section-headline" data-reveal data-delay="1">
@@ -1126,7 +1123,7 @@
     <!-- ══════════════════════════════════════
      TEMUAN / INTERPRETASI
      ══════════════════════════════════════ -->
-        <section class="section-wrap" id="interpretasi" data-section="Temuan">
+    <section class="section-wrap" id="interpretasi" data-section="Temuan">
       <div class="inner">
         <p class="eyebrow" data-reveal>08 — Temuan Penelitian</p>
         <h2 class="section-headline" data-reveal data-delay="1">
@@ -1144,7 +1141,13 @@
             <div class="fc-bar" style="background: var(--risk-1)">
               <div
                 class="fc-bar-fill"
-                style="background: linear-gradient(90deg, var(--risk-1), var(--risk-2))"
+                style="
+                  background: linear-gradient(
+                    90deg,
+                    var(--risk-1),
+                    var(--risk-2)
+                  );
+                "
                 data-width="100"
               ></div>
             </div>
@@ -1168,7 +1171,13 @@
             <div class="fc-bar" style="background: var(--risk-2)">
               <div
                 class="fc-bar-fill"
-                style="background: linear-gradient(90deg, var(--risk-2), var(--risk-3))"
+                style="
+                  background: linear-gradient(
+                    90deg,
+                    var(--risk-2),
+                    var(--risk-3)
+                  );
+                "
                 data-width="78"
               ></div>
             </div>
@@ -1189,7 +1198,13 @@
             <div class="fc-bar" style="background: var(--risk-3)">
               <div
                 class="fc-bar-fill"
-                style="background: linear-gradient(90deg, var(--risk-3), var(--gold))"
+                style="
+                  background: linear-gradient(
+                    90deg,
+                    var(--risk-3),
+                    var(--gold)
+                  );
+                "
                 data-width="52"
               ></div>
             </div>
@@ -1207,7 +1222,13 @@
             <div class="fc-bar" style="background: var(--risk-4)">
               <div
                 class="fc-bar-fill"
-                style="background: linear-gradient(90deg, var(--risk-4), var(--teal))"
+                style="
+                  background: linear-gradient(
+                    90deg,
+                    var(--risk-4),
+                    var(--teal)
+                  );
+                "
                 data-width="22"
               ></div>
             </div>
