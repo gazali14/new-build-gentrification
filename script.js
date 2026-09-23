@@ -1737,7 +1737,6 @@ function injectPulseStyle() {
 // ─────────────────────────────────────────────
 document.addEventListener("DOMContentLoaded", () => {
   initCanvas();
-  initCursor();
   initProgressBar();
   initNav();
   initReveal();
