@@ -847,10 +847,6 @@ body::after {
   letter-spacing: 0.12em;
   writing-mode: vertical-rl;
 }
-.sic-arrow {
-  display: inline-block;
-  transform: rotate(180deg);
-}
 
 .sat-img-change {
   display: flex;
