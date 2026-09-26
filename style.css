@@ -790,7 +790,15 @@ body::after {
   transition: opacity 0.3s;
 }
 
-/* Placeholder saat file belum ada */
+.sic-arrow {
+  font-size: 1.1rem;
+  color: var(--teal, #00d4ff);
+  line-height: 1;
+  display: inline-block;
+  writing-mode: horizontal-tb;
+  transform: rotate(90deg);
+}
+
 .sat-img-placeholder {
   position: absolute;
   inset: 0;
@@ -1020,6 +1028,9 @@ body::after {
   }
   .sat-guide-grid {
     grid-template-columns: 1fr;
+  }
+  .sic-arrow {
+    transform: rotate(180deg);
   }
 }
 
@@ -1882,6 +1893,12 @@ body::after {
   margin-top: 2rem;
   background: rgba(0, 212, 170, 0.1);
 }
+
+.dark-basemap-tiles {
+  filter: invert(1) grayscale(0.6) brightness(0.9) contrast(1.05)
+    hue-rotate(180deg);
+}
+
 #map {
   height: 580px;
   width: 100%;
