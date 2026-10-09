@@ -425,10 +425,7 @@
                 Klaster 2 Transisi (21). Uji <em>K-Color Join Count</em> (<em
                   >Queen contiguity</em
                 >, 10.000 permutasi Monte Carlo) menunjukkan ketiga klaster
-                mengelompok secara spasial (p &lt; 0,05). Klaster 1 kemudian
-                ditetapkan sebagai kelas <em>Gentrifying</em> (7 kecamatan),
-                sedangkan Klaster 0 dan 2 digabung sebagai
-                <em>Not Gentrifying</em> (35 kecamatan).
+                mengelompok secara spasial (p &lt; 0,05). Ketiga klaster ini menjadi kelas target model prediksi, dengan Klaster 1 (Intensif, 7 kecamatan) sebagai kelas yang merepresentasikan <em>new-build gentrification</em>.
               </p>
               <div class="chip-row">
                 <span class="chip">K-Means</span>
@@ -442,9 +439,7 @@
             <div class="method-step-body">
               <h4>Prediksi: Random Forest vs GBM</h4>
               <p>
-                Dua algoritma <em>tree-based</em> dilatih dengan 13 variabel
-                kondisi 2014 sebagai fitur dan label gentrifikasi 2014–2024
-                sebagai target. Karena sampel hanya 42 kecamatan dan kelas tidak
+                Dua algoritma <em>tree-based</em> dilatih dengan 9 variabel prediktor sebagai fitur dan klaster hasil K-Means (Stabil, Intensif, Transisi) sebagai target. Karena sampel hanya 42 kecamatan dan kelas tidak
                 seimbang, digunakan <em>nested cross-validation</em>:
                 <em>outer loop</em> <em>Leave-One-Out CV</em> (42 iterasi) untuk
                 evaluasi, dan <em>inner loop</em> 5-fold untuk
@@ -467,7 +462,7 @@
                 Untuk mengukur ketidakpastian, dilakukan
                 <em>bootstrap resampling</em> 50 iterasi: median dan rentang
                 interkuartil (IQR) dari 50 probabilitas dihitung per kecamatan.
-                Probabilitas dikategorikan mengacu pada Knorr (2019): Rendah
+                Probabilitas kelas Intensif dikategorikan mengacu pada Knorr (2019): Rendah
                 (&lt;20%), Sedang (20–35%), Tinggi (35–50%), dan Sangat Tinggi
                 (&gt;50%).
               </p>
@@ -521,7 +516,7 @@
         </div>
 
         <div class="var-block" data-reveal>
-          <h4 class="var-block-title">13 variabel prediktor</h4>
+          <h4 class="var-block-title">9 variabel prediktor</h4>
           <div class="var-pills" id="var-pills-container"></div>
         </div>
       </div>
@@ -626,7 +621,7 @@
       <div class="inner">
         <p class="eyebrow" data-reveal>03 — Pelabelan Wilayah</p>
         <h2 class="section-headline" data-reveal data-delay="1">
-          Tiga pola perubahan,<br /><em>satu label untuk model</em>
+          Tiga pola perubahan,<br /><em>tiga kelas untuk model</em>
         </h2>
         <p class="lead" data-reveal data-delay="2">
           Belum ada label resmi tentang kecamatan mana yang sudah
@@ -675,11 +670,8 @@
         </div>
 
         <div class="callout" data-reveal>
-          <strong>Dari tiga klaster menjadi dua label</strong>
-          Klaster 1 ditetapkan sebagai kelas <em>Gentrifying</em> (7 kecamatan,
-          16,7%). Klaster 0 dan 2 digabung sebagai <em>Not Gentrifying</em> (35
-          kecamatan, 83,3%). Label biner inilah yang diprediksi model pada
-          bagian berikutnya.
+          <strong>Tiga klaster menjadi tiga kelas target</strong>
+          Klaster 0 (Stabil, 14 kecamatan), Klaster 1 (Intensif, 7 kecamatan, 16,7%), dan Klaster 2 (Transisi, 21 kecamatan) dipakai sebagai kelas target model. Probabilitas yang dipetakan pada bagian berikutnya adalah probabilitas suatu kecamatan masuk Klaster 1 (Intensif), kelas yang dipakai sebagai penanda <em>new-build gentrification</em>.
         </div>
       </div>
     </section>
@@ -696,21 +688,16 @@
       <div class="inner" style="position: relative; z-index: 1">
         <p class="eyebrow" data-reveal>04 — Performa Model</p>
         <h2 class="section-headline" data-reveal data-delay="1">
-          Random Forest unggul<br /><em>di hampir semua metrik</em>
+          Random Forest unggul<br /><em>pada lima dari enam metrik</em>
         </h2>
         <p class="lead" data-reveal data-delay="2">
           Dua algoritma <em>tree-based</em> dibandingkan lewat
-          <em>nested cross-validation</em> pada 42 kecamatan. Accuracy keduanya
-          sama (0,905), tetapi Random Forest jauh lebih unggul pada Balanced
-          Accuracy (0,943 vs 0,829), AUC (0,951 vs 0,835), dan Recall (1,000 vs
-          0,714). GBM hanya lebih tinggi pada Precision (0,714 vs 0,636).
+          <em>nested cross-validation</em> pada 42 kecamatan. Accuracy keduanya sama (0,738), tetapi Random Forest lebih tinggi pada AUC (0,873 vs 0,840), Balanced Accuracy (0,738 vs 0,706), Recall (0,738 vs 0,706), F1-Score (0,770 vs 0,749), dan Precision (0,805 vs 0,799). Selisih terbesar ada pada AUC, Balanced Accuracy, dan Recall (sekitar 0,03), sedangkan Precision nyaris setara.
         </p>
 
         <div class="callout" data-reveal>
           <strong>Mengapa Balanced Accuracy dan AUC?</strong>
-          Label biner tidak seimbang: 35 kecamatan
-          <em>Not Gentrifying</em> (83,3%) berbanding 7
-          <em>Gentrifying</em> (16,7%). Kedua model memakai
+          Kelas target tidak seimbang: 21 kecamatan Transisi (50,0%), 14 Stabil (33,3%), dan hanya 7 Intensif (16,7%). Kedua model memakai
           <em>class_weight = balanced</em>, dan evaluasi memprioritaskan dua
           metrik yang lebih tahan terhadap ketidakseimbangan kelas dibanding
           accuracy biasa.
@@ -745,15 +732,7 @@
             Intensitas cahaya malam adalah sinyal terkuat
           </h3>
           <p class="body-copy" style="margin-bottom: 1.5rem">
-            Night-Time Light (NTL) memberi kontribusi terbesar (28,2%), diikuti
-            LST (13,6%): perubahan intensitas aktivitas dan kondisi termal
-            kawasan paling membantu model membedakan kecamatan. Variabel
-            sosial-ekonomi juga berperan, yaitu kemiskinan berbasis SKTM (10,1%)
-            dan kepadatan penduduk (9,2%), disusul jumlah bangunan kumuh (6,2%)
-            dan NDBI (5,5%). Tidak ada satu variabel yang mendominasi
-            berlebihan, sehingga <em>new-build gentrification</em> dibaca
-            sebagai fenomena multidimensi yang perlu dideteksi lewat kombinasi
-            indikator.
+            Night-Time Light (NTL) memberi kontribusi terbesar (25,3%): intensitas aktivitas ekonomi kawasan paling membantu model membedakan kecamatan. Fasilitas komersial (16,0%), pendidikan (12,3%), dan LST (12,0%) menyusul, lalu fasilitas kesehatan (11,2%). Secara kelompok, empat variabel fasilitas menyumbang 42,8% (komersial, pendidikan, kesehatan, transportasi), sedangkan empat indikator citra satelit (NTL, LST, NDVI, NDBI) menyumbang 49,6%. NJOP berkontribusi 7,6%, dan fasilitas transportasi paling kecil (3,3%). Tidak ada satu variabel yang mendominasi berlebihan, sehingga <em>new-build gentrification</em> dibaca sebagai fenomena multidimensi yang perlu dideteksi lewat kombinasi indikator.
           </p>
           <div class="fi-chart-container" id="fi-chart-container"></div>
         </div>
@@ -777,8 +756,7 @@
             Karena algoritma <em>tree-based</em> memuat unsur acak, prediksi
             diuji ulang dengan <em>bootstrap resampling</em>. IQR yang sempit
             berarti prediksi konsisten; IQR yang lebar berarti prediksi lebih
-            sensitif terhadap komposisi data latih. Pola probabilitas prediksi
-            Random Forest sangat mirip dengan median bootstrap, sehingga
+            sensitif terhadap komposisi data latih. Probabilitas prediksi Random Forest sangat dekat dengan median bootstrap (korelasi 0,99; selisih rata-rata 2,7 poin persentase), sehingga
             probabilitas prediksi dipakai sebagai dasar kategori.
           </p>
           <div class="stab-grid">
@@ -815,12 +793,13 @@
           style="margin-bottom: 1.5rem"
         >
           Probabilitas menurun bertahap dari pusat ke pinggiran (pola
-          <em>center-periphery</em>). Lima kecamatan berkategori Sangat Tinggi,
-          yaitu Setia Budi, Menteng, Gambir, Kebayoran Baru, dan Kelapa Gading,
-          dikelilingi kecamatan berkategori Tinggi dan Sedang yang membentuk
-          zona transisi. Kategori Rendah berada di pinggiran selatan dan
-          tenggara (Jagakarsa, Pasar Rebo, Ciracas, Cipayung) serta barat dan
-          timur laut (Kali Deres, Cilincing).
+          <em>center-periphery</em>). Tujuh kecamatan berkategori Sangat Tinggi,
+          yaitu Setia Budi, Tanah Abang, Kebayoran Baru, Kelapa Gading, Menteng,
+          Senen, dan Gambir, menempati inti kota. Kategori Tinggi (13
+          kecamatan) dan Sedang (7 kecamatan) membentuk zona transisi di
+          sekitarnya, sedangkan 15 kecamatan berkategori Rendah berada terutama
+          di pinggiran selatan, timur, barat, dan timur laut (misalnya
+          Jagakarsa, Ciracas, Cipayung, Kali Deres, Cilincing).
         </p>
 
         <div class="peta-toolbar" data-reveal>
@@ -887,28 +866,28 @@
                   class="legend-swatch"
                   style="background: var(--risk-1)"
                 ></div>
-                <span>Sangat Tinggi (&gt;50%) — 5 Kec.</span>
+                <span>Sangat Tinggi (&gt;50%) — 7 Kec.</span>
               </div>
               <div class="legend-row" data-filter="Tinggi">
                 <div
                   class="legend-swatch"
                   style="background: var(--risk-2)"
                 ></div>
-                <span>Tinggi (35–50%) — 12 Kec.</span>
+                <span>Tinggi (35–50%) — 13 Kec.</span>
               </div>
               <div class="legend-row" data-filter="Sedang">
                 <div
                   class="legend-swatch"
                   style="background: var(--risk-3)"
                 ></div>
-                <span>Sedang (20–35%) — 15 Kec.</span>
+                <span>Sedang (20–35%) — 7 Kec.</span>
               </div>
               <div class="legend-row" data-filter="Rendah">
                 <div
                   class="legend-swatch"
                   style="background: var(--risk-4)"
                 ></div>
-                <span>Rendah (&lt;20%) — 10 Kec.</span>
+                <span>Rendah (&lt;20%) — 15 Kec.</span>
               </div>
             </div>
 
@@ -916,7 +895,7 @@
               <button class="map-ctrl-btn" id="btn-zoom-in">＋ Zoom</button>
               <button class="map-ctrl-btn" id="btn-zoom-out">－ Zoom</button>
               <button class="map-ctrl-btn" id="btn-reset">⟳ Reset</button>
-              <button class="map-ctrl-btn" id="btn-top5">🔴 Top 5</button>
+              <button class="map-ctrl-btn" id="btn-top5">🔴 Top 7</button>
             </div>
           </div>
         </div>
@@ -925,7 +904,7 @@
           Cara membaca: probabilitas menunjukkan seberapa mirip karakteristik
           suatu kecamatan pada 2024 dengan kecamatan yang teridentifikasi
           mengalami <em>new-build gentrification</em> pada 2014–2024 (Knorr,
-          2019), bukan kepastian bahwa kejadian tersebut akan berlangsung.
+          2019), bukan kepastian bahwa kejadian tersebut akan berlangsung. Panel info juga menampilkan kelas prediksi (Stabil, Intensif, atau Transisi) tiap kecamatan.
         </p>
         <p
           style="
@@ -945,6 +924,9 @@
     <!-- ══════════════════════════════════════
      VALIDASI EKSTERNAL — DATA PENGGUSURAN
      ══════════════════════════════════════ -->
+    <!-- TODO: angka validasi di bagian ini (116 kasus, 66,4%, 87,8%, tabel per kategori) dihitung dari kategori prediksi LAMA.
+     Hitung ulang overlay penggusuran LBH Jakarta terhadap kategori pada hasil_prediksi_2024.csv, lalu perbarui
+     val-stats, VALIDATION_DATA di script.js, dan paragraf pull-note. -->
     <section class="section-wrap" id="validasi" data-section="Validasi">
       <div class="inner-wide">
         <p class="eyebrow" data-reveal>06 — Validasi Eksternal</p>
@@ -1056,20 +1038,20 @@
           42 kecamatan,<br /><em>empat kategori probabilitas</em>
         </h2>
         <p class="lead" data-reveal data-delay="2" style="margin-bottom: 2rem">
-          Sebanyak 5 kecamatan (11,9%) masuk kategori Sangat Tinggi, 12
-          kecamatan (28,6%) kategori Tinggi, 15 kecamatan (35,7%) kategori
-          Sedang, dan 10 kecamatan (23,8%) kategori Rendah. Probabilitasnya
-          berkisar dari 7,4% (Pasar Rebo) hingga 69,6% (Setia Budi). Klik tab
+          Sebanyak 7 kecamatan (16,7%) masuk kategori Sangat Tinggi, 13
+          kecamatan (31,0%) kategori Tinggi, 7 kecamatan (16,7%) kategori
+          Sedang, dan 15 kecamatan (35,7%) kategori Rendah. Probabilitasnya
+          berkisar dari 3,5% (Ciracas) hingga 77,6% (Setia Budi). Klik tab
           untuk melihat daftar kecamatan per kategori.
         </p>
 
         <div class="risk-tabs" data-reveal>
           <button class="risk-tab active" data-cat="sangat">
-            🔴 Sangat Tinggi (5)
+            🔴 Sangat Tinggi (7)
           </button>
-          <button class="risk-tab" data-cat="tinggi">🟠 Tinggi (12)</button>
-          <button class="risk-tab" data-cat="sedang">🟡 Sedang (15)</button>
-          <button class="risk-tab" data-cat="rendah">🔵 Rendah (10)</button>
+          <button class="risk-tab" data-cat="tinggi">🟠 Tinggi (13)</button>
+          <button class="risk-tab" data-cat="sedang">🟡 Sedang (7)</button>
+          <button class="risk-tab" data-cat="rendah">🔵 Rendah (15)</button>
         </div>
         <div class="rank-head" aria-hidden="true">
           <span>No.</span>
@@ -1133,9 +1115,7 @@
         </h2>
         <p class="lead" data-reveal data-delay="2">
           Probabilitas <em>new-build gentrification</em> tertinggi berada di
-          pusat kota dan menurun bertahap ke pinggiran. Penggusuran 2016–2018
-          paling banyak terjadi di kawasan berkategori Tinggi dan Sedang, yaitu
-          kawasan yang masih dalam proses transformasi.
+          inti kota dan menurun bertahap ke pinggiran. Pada data 2024, 7 kecamatan diprediksi masuk kelas Intensif, 34 kecamatan kelas Transisi, dan hanya 1 kecamatan (Duren Sawit) kelas Stabil.
         </p>
 
         <div class="finding-grid" data-reveal data-delay="3">
@@ -1154,18 +1134,11 @@
               ></div>
             </div>
             <span class="fc-tag" style="color: var(--risk-1)"
-              >🔴 Sangat Tinggi — 5 Kecamatan</span
-            >
+              >🔴 Sangat Tinggi — 7 Kecamatan</span
             <h3>Inti gentrifikasi Jakarta</h3>
             <ul>
-              <li>
-                Setia Budi (69,6%), Menteng (61,4%), Gambir (55,8%), Kebayoran
-                Baru (54,2%), Kelapa Gading (50,9%)
-              </li>
-              <li>
-                Pusat aktivitas bisnis dan pemerintahan; Kelapa Gading menonjol
-                sebagai pusat hunian dan komersial premium di Jakarta Utara
-              </li>
+              <li>Setia Budi (77,6%), Tanah Abang (72,7%), Kebayoran Baru (64,8%), Kelapa Gading (56,9%), Menteng (55,1%), Senen (51,2%), Gambir (51,2%)</li>
+              <li>Identik dengan Klaster Intensif hasil K-Means; Senen dan Gambir hanya sedikit di atas batas 50%, dengan median bootstrap di bawah 50%</li>
             </ul>
           </div>
 
@@ -1184,15 +1157,11 @@
               ></div>
             </div>
             <span class="fc-tag" style="color: var(--risk-2)"
-              >🟠 Tinggi — 12 Kecamatan</span
-            >
+              >🟠 Tinggi — 13 Kecamatan</span
             <h3>Zona transisi di sekitar inti</h3>
             <ul>
-              <li>
-                Termasuk Tanah Abang (48,0%), Jatinegara (44,9%), dan Cakung
-                (44,4%)
-              </li>
-              <li>Memuat porsi KK terdampak penggusuran terbesar (66,2%)</li>
+              <li>Termasuk Mampang Prapatan (46,7%), Cempaka Putih (46,4%), Palmerah (44,5%), dan Tebet (44,2%)</li>
+              <li>Seluruhnya diprediksi masuk kelas Transisi; Mampang Prapatan memiliki IQR bootstrap terbesar kedua (0,227)</li>
             </ul>
           </div>
 
@@ -1211,12 +1180,11 @@
               ></div>
             </div>
             <span class="fc-tag" style="color: var(--risk-3)"
-              >🟡 Sedang — 15 Kecamatan</span
-            >
+              >🟡 Sedang — 7 Kecamatan</span
             <h3>Cincin perantara</h3>
             <ul>
-              <li>Berada di antara inti dan kawasan pinggiran</li>
-              <li>Cengkareng (20,4%) tepat di ambang batas kategori</li>
+              <li>Grogol Petamburan (34,8%), Pulo Gadung (31,6%), dan Tambora (30,8%) berada di bagian atas kategori</li>
+              <li>Pancoran (20,2%) tepat di ambang batas kategori Rendah</li>
             </ul>
           </div>
 
@@ -1235,18 +1203,11 @@
               ></div>
             </div>
             <span class="fc-tag" style="color: var(--risk-4)"
-              >🔵 Rendah — 10 Kecamatan</span
-            >
-            <h3>Pinggiran yang relatif terlindungi</h3>
+              >🔵 Rendah — 15 Kecamatan</span
+            <h3>Pinggiran yang belum menyerupai pola Intensif</h3>
             <ul>
-              <li>
-                Pasar Rebo (7,4%), Pesanggrahan (8,3%), Cipayung (9,3%), dan
-                kecamatan pinggiran lainnya
-              </li>
-              <li>
-                Aksesibilitas ke pusat lebih terbatas, sehingga lebih
-                terlindungi dalam jangka pendek
-              </li>
+              <li>Ciracas (3,5%), Pesanggrahan (3,8%), Cilincing (4,3%), dan kecamatan pinggiran lainnya</li>
+              <li>Empat belas dari lima belas diprediksi kelas Transisi; hanya Duren Sawit (10,7%) yang diprediksi Stabil</li>
             </ul>
           </div>
         </div>
