@@ -924,16 +924,11 @@
     <!-- ══════════════════════════════════════
      VALIDASI EKSTERNAL — DATA PENGGUSURAN
      ══════════════════════════════════════ -->
-    <!-- TODO: angka validasi di bagian ini (116 kasus, 66,4%, 87,8%, tabel per kategori) dihitung dari kategori prediksi LAMA.
-     Hitung ulang overlay penggusuran LBH Jakarta terhadap kategori pada hasil_prediksi_2024.csv, lalu perbarui
-     val-stats, VALIDATION_DATA di script.js, dan paragraf pull-note. -->
     <section class="section-wrap" id="validasi" data-section="Validasi">
       <div class="inner-wide">
         <p class="eyebrow" data-reveal>06 — Validasi Eksternal</p>
         <h2 class="section-headline" data-reveal data-delay="1">
-          Penggusuran terjadi di kawasan<br /><em
-            >yang sedang bertransformasi</em
-          >
+          Penggusuran paling padat di<br /><em>kawasan probabilitas tertinggi</em>
         </h2>
         <p class="lead" data-reveal data-delay="2">
           Sebagai pembanding, hasil prediksi dicocokkan dengan 116 kasus
@@ -952,15 +947,15 @@
             >
           </div>
           <div class="val-stat">
-            <span class="val-num">66,4%</span>
+            <span class="val-num">3,71</span>
             <span class="val-lbl"
-              >Kasus (77) berada di kategori<br />Sedang dan Tinggi</span
+              >Kasus per kecamatan di kategori<br />Sangat Tinggi (tertinggi)</span
             >
           </div>
           <div class="val-stat">
-            <span class="val-num">87,8%</span>
+            <span class="val-num">71,4%</span>
             <span class="val-lbl"
-              >KK terdampak berada di kategori<br />Sedang dan Tinggi</span
+              >KK terdampak (4.337) berada di kategori<br />Sedang dan Tinggi</span
             >
           </div>
         </div>
@@ -982,6 +977,7 @@
                 <tr>
                   <th>Kategori</th>
                   <th>Kasus</th>
+                  <th>Rasio</th>
                   <th>KK</th>
                 </tr>
               </thead>
@@ -1010,15 +1006,19 @@
 
         <div class="pull-note" data-reveal style="margin-top: 2.5rem">
           <p>
-            Kasus dan KK terdampak paling banyak berada di kategori Tinggi dan
-            Sedang, artinya penggusuran banyak terjadi pada kawasan yang masih
-            mengalami proses transformasi, bukan hanya di kawasan dengan
-            probabilitas tertinggi. Ini sejalan dengan konsep <em>rent gap</em>:
+            Secara jumlah, kasus tersebar di semua kategori: 37 kasus (31,9%) di
+            Rendah, 18 (15,5%) di Sedang, 35 (30,2%) di Tinggi, dan 26 (22,4%) di
+            Sangat Tinggi. Karena hanya ada 7 kecamatan Sangat Tinggi, rasio
+            kasus per kecamatan di kategori ini paling tinggi (3,71, dibanding
+            2,47–2,69 di kategori lain), yaitu penggusuran lebih padat di
+            kawasan dengan probabilitas tertinggi. Dari sisi dampak, KK
+            terdampak terbanyak ada di kategori Sedang (2.718 KK, 44,8%) dan
+            Tinggi (1.619 KK, 26,7%), sedangkan Sangat Tinggi mencatat 719 KK
+            (11,8%). Pola ini konsisten dengan konsep <em>rent gap</em>:
             perubahan kawasan dan reinvestasi berlangsung ketika ada kesenjangan
-            antara nilai lahan aktual dan potensinya. Porsi kecil di kategori
-            Sangat Tinggi tidak berarti <em>displacement</em> tidak terjadi di
-            sana; sebagian kawasan itu mungkin sudah bertransformasi lebih awal
-            sehingga tidak seluruhnya tercakup periode penelitian.
+            antara nilai lahan aktual dan potensinya. Hasil ini bersifat
+            deskriptif dan bukan bukti hubungan sebab-akibat; sebagian lokasi
+            kasus juga hanya diketahui sampai tingkat ruas jalan atau kelurahan.
           </p>
         </div>
       </div>
@@ -1115,7 +1115,7 @@
         </h2>
         <p class="lead" data-reveal data-delay="2">
           Probabilitas <em>new-build gentrification</em> tertinggi berada di
-          inti kota dan menurun bertahap ke pinggiran. Pada data 2024, 7 kecamatan diprediksi masuk kelas Intensif, 34 kecamatan kelas Transisi, dan hanya 1 kecamatan (Duren Sawit) kelas Stabil.
+          inti kota dan menurun bertahap ke pinggiran. Pada data 2024, 7 kecamatan diprediksi masuk kelas Intensif, 34 kecamatan kelas Transisi, dan hanya 1 kecamatan (Duren Sawit) kelas Stabil. Pada validasi penggusuran, rasio kasus per kecamatan tertinggi berada di kategori Sangat Tinggi (3,71).
         </p>
 
         <div class="finding-grid" data-reveal data-delay="3">

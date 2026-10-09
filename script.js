@@ -569,14 +569,13 @@ const MODEL_METRICS = [
   { label: "Precision", short: "Precision", rf: 0.805, gbm: 0.799 },
 ];
 
-// TODO: DATA LAMA (Tabel 22 versi sebelumnya). Angka ini dihitung dari kategori prediksi
-// lama dan BELUM dihitung ulang terhadap hasil_prediksi_2024.csv. Perlu overlay ulang titik
-// penggusuran LBH Jakarta 2016–2018 dengan kategori baru sebelum dipublikasikan.
+// Tabel 21 skripsi — distribusi kasus penggusuran (LBH Jakarta 2016–2018), KK terdampak,
+// dan rasio kasus per kecamatan menurut kategori prediksi (rasio dihitung dari kasus / kec)
 const VALIDATION_DATA = [
-  { kategori: "Rendah", range: "0–20%", kasus: 22, kk: 517 },
-  { kategori: "Sedang", range: "20–35%", kasus: 37, kk: 1310 },
-  { kategori: "Tinggi", range: "35–50%", kasus: 40, kk: 4022 },
-  { kategori: "Sangat Tinggi", range: ">50%", kasus: 17, kk: 223 },
+  { kategori: "Rendah", range: "0–20%", kec: 15, kasus: 37, kk: 1016 },
+  { kategori: "Sedang", range: "20–35%", kec: 7, kasus: 18, kk: 2718 },
+  { kategori: "Tinggi", range: "35–50%", kec: 13, kasus: 35, kk: 1619 },
+  { kategori: "Sangat Tinggi", range: ">50%", kec: 7, kasus: 26, kk: 719 },
 ];
 
 const RISK_COLORS = {
@@ -1240,24 +1239,29 @@ function initStability() {
 }
 
 // ─────────────────────────────────────────────
-// TABEL VALIDASI PENGGUSURAN (data lama, lihat TODO di VALIDATION_DATA)
+// TABEL VALIDASI PENGGUSURAN (Tabel 21)
 // ─────────────────────────────────────────────
 function initValidationTable() {
   const tbody = document.getElementById("val-table-body");
   if (!tbody) return;
   const totKasus = VALIDATION_DATA.reduce((a, d) => a + d.kasus, 0);
   const totKK = VALIDATION_DATA.reduce((a, d) => a + d.kk, 0);
-  const rows = VALIDATION_DATA.map(
-    (d) => `<tr>
-      <td><span class="val-dot" style="background:${RISK_COLORS[d.kategori]}"></span>${d.kategori}<small>${d.range}</small></td>
+  const totKec = VALIDATION_DATA.reduce((a, d) => a + d.kec, 0);
+  const maxRasio = Math.max(...VALIDATION_DATA.map((d) => d.kasus / d.kec));
+  const rows = VALIDATION_DATA.map((d) => {
+    const rasio = d.kasus / d.kec;
+    const hi = rasio === maxRasio ? ' style="color:var(--teal);font-weight:700"' : "";
+    return `<tr>
+      <td><span class="val-dot" style="background:${RISK_COLORS[d.kategori]}"></span>${d.kategori}<small>${d.range} · ${d.kec} kec.</small></td>
       <td>${d.kasus}<small>${fmt((d.kasus / totKasus) * 100, 1)}%</small></td>
+      <td${hi}>${fmt(rasio, 2)}<small>per kec.</small></td>
       <td>${d.kk.toLocaleString("id-ID")}<small>${fmt((d.kk / totKK) * 100, 1)}%</small></td>
-    </tr>`,
-  ).join("");
+    </tr>`;
+  }).join("");
   tbody.innerHTML =
     rows +
     `<tr class="val-total">
-      <td>Total</td><td>${totKasus}<small>100%</small></td><td>${totKK.toLocaleString("id-ID")}<small>100%</small></td>
+      <td>Total<small>${totKec} kec.</small></td><td>${totKasus}<small>100%</small></td><td>${fmt(totKasus / totKec, 2)}<small>per kec.</small></td><td>${totKK.toLocaleString("id-ID")}<small>100%</small></td>
     </tr>`;
 }
 
@@ -1902,7 +1906,7 @@ function initCharts() {
     });
   }
 
-  // ── Validasi: kasus penggusuran & KK terdampak per kategori (data lama, lihat TODO)
+  // ── Validasi: kasus penggusuran & KK terdampak per kategori (Tabel 21)
   const vCtx = document.getElementById("chart-validasi")?.getContext("2d");
   if (vCtx) {
     const totKasus = VALIDATION_DATA.reduce((a, d) => a + d.kasus, 0);
@@ -1962,7 +1966,7 @@ function initCharts() {
           },
           y: {
             beginAtZero: true,
-            max: 80,
+            max: 50,
             grid: { color: "rgba(255,255,255,0.05)" },
             ticks: { callback: (v) => v + "%", color: "rgba(200,192,176,0.6)" },
           },
