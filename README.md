@@ -1,4 +1,4 @@
-# Web Story: Analisis Fenomena New-Build Gentrification di Jakarta
+# Web Story: Analisis New-Build Gentrification di Jakarta
 
 ## 1. Deskripsi
 
@@ -84,11 +84,3 @@ Rincian fitur yang aktif mengikuti implementasi terakhir pada `index.html` dan `
 
 Web Story menyajikan hasil penelitian sebagai informasi awal untuk memahami pola spasial dan meninjau kecamatan berdasarkan prediksi probabilitas new-build gentrification. Prediksi tersebut tidak dengan sendirinya membuktikan bahwa penggusuran atau perpindahan penduduk disebabkan oleh pembangunan baru. Interpretasi perlu mempertimbangkan metode, cakupan data, ketelitian lokasi data validasi, dan batasan penelitian yang dijelaskan pada Web Story.
 
-## 7. Identitas Penelitian
-
-- **Judul skripsi:** Analisis Fenomena New-Build Gentrification di Jakarta Menggunakan Data Multisumber dengan Pendekatan Machine Learning
-- **Mahasiswa:** La Ode Muhammad Gazali
-- **NIM:** 222212696
-- **Program studi:** Diploma IV Komputasi Statistik
-- **Institusi:** Politeknik Statistika STIS
-- **Tahun:** 2026
